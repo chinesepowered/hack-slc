@@ -33,8 +33,14 @@ async function main() {
   log.info({ port: config.port, version: config.version }, 'capykube listening');
 
   // Exit cleanly when Kubernetes stops the pod, so rollouts don't drop requests.
-  process.once('SIGTERM', () => {
-    app.close().then(() => process.exit(0), () => process.exit(1));
+  process.once('SIGTERM', async () => {
+    try {
+      await app.close();
+      await (globalThis as any).__otelShutdown?.();
+      process.exit(0);
+    } catch {
+      process.exit(1);
+    }
   });
 }
 

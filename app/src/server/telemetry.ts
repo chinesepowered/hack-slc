@@ -59,9 +59,5 @@ if (token && process.env.OTEL_SDK_DISABLED !== 'true') {
 
   sdk.start();
 
-  const shutdown = () => {
-    sdk.shutdown().catch(() => undefined);
-  };
-  process.once('SIGTERM', shutdown);
-  process.once('beforeExit', shutdown);
+  (globalThis as any).__otelShutdown = () => sdk.shutdown();
 }

@@ -177,10 +177,10 @@ The image tag is the first seven characters of the app commit that triggered
    `sync_options`. Read the live Deployment (or Rollout if you changed the example)
    and confirm its pod-template image matches the expected tag. If not, keep waiting
    on the desired revision; don't report the existing healthy app as the new build.
-4. Use `wait_for` for rollout completion, then request your public `/api/sessions`.
-   The starter's `version` field must equal that seven-character tag (or the unchanged
-   image tag when the Action intentionally skipped a configuration-only push). Keep an equivalent
-   version endpoint if you replace the starter app. Verify the feature you changed too.
+4. Use `wait_for` for rollout completion, then request your public `/api/version`.
+   Its `version` field must equal the seven-character tag from step 1 (or the unchanged
+   image tag when the Action intentionally skipped a configuration-only push). Keep an
+   equivalent version endpoint if you replace the starter app. Verify the feature you changed too.
 
 ## Delegate a real question to hosted AI SRE
 
