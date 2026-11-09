@@ -127,8 +127,10 @@ error while it was happening.
 - The Deployment rolls with one surge pod and `maxUnavailable: 0`, so the
   old pod serves until the new one is ready. Measured from outside on the
   next deploy, polling twice a second: one failed request out of 359, and
-  never more than a second between good answers. Before, each deploy took
-  the app away for about 20 seconds.
+  never more than a second between good answers. On the deploy after that
+  ([#16](https://github.com/chinesepowered/hack-slc/pull/16)), none of 260
+  requests failed. Before, each deploy took the app away for about 20
+  seconds.
 - `build-and-deploy` checks that the image can be pulled without
   credentials before it writes the deploy commit, so an image the cluster
   can't pull never reaches Argo CD.
