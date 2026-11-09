@@ -39,6 +39,10 @@ spec:
         app.kubernetes.io/name: elasticsearch
         app.kubernetes.io/part-of: capykube
     spec:
+      # A single node needs no Kubernetes API access for discovery.
+      automountServiceAccountToken: false
+      # The root filesystem stays writable: at start-up Elasticsearch writes
+      # its keystore and logs under its own install directory.
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
