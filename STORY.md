@@ -21,7 +21,7 @@ https://app.radarhq.io/checks?scope=b6tBbVG5WFw&namespace=team-capykube2
   that has seats and holds them one. It helps the attendee at a full door,
   the door staff, and the organizer who never knew how many people were
   turned away. Live at https://capykube2.cnh.radarhq.io.
-- **How we shipped.** 15 pull requests, each reviewed by Gitar, and 13
+- **How we shipped.** 17 pull requests, each reviewed by Gitar, and 14
   deploys. Every merge that changed the app built an image and
   committed a `deploy:` commit; our coding agent synced Argo CD with Radar's
   `manage_gitops` and waited for each rollout with `wait_for`. Nobody ran
@@ -42,8 +42,8 @@ https://app.radarhq.io/checks?scope=b6tBbVG5WFw&namespace=team-capykube2
   ([#13](https://github.com/chinesepowered/hack-slc/pull/13)): a rolling
   update with one surge pod, and a build that refuses to deploy an image the
   cluster can't pull. On the next deploy the public URL, polled twice a
-  second, failed one request out of 359, against about 20 seconds without
-  the app before.
+  second, failed one request out of 359, and on the deploy after that none
+  of 260, against about 20 seconds without the app before.
 - **Checks before and after.** 3 medium findings on the starter, 5 on our
   first deploy, 2 after
   [#9](https://github.com/chinesepowered/hack-slc/pull/9) (no service
