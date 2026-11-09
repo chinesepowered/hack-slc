@@ -29,7 +29,11 @@ jobs:
       - name: Image name and tag
         id: meta
         run: |
-          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+          # The image is published as <owner>/<repo>/app. A package takes the
+          # repository's visibility when a workflow first creates it, and the
+          # original <owner>/<repo> package was created while this repository
+          # was still private, so the cluster could not pull it.
+          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}/app" >> "$GITHUB_OUTPUT"
           echo "tag=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
 
       - uses: docker/login-action@v3
