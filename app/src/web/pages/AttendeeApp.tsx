@@ -88,8 +88,16 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Ignore answers to superseded requests when the toggles change quickly.
+    let stale = false;
     setPreview(null);
-    api.planB(talk.id, { quiet, stepFree }).then(setPreview, (e) => setError(String(e)));
+    api.planB(talk.id, { quiet, stepFree }).then(
+      (p) => !stale && setPreview(p),
+      (e) => !stale && setError(String(e)),
+    );
+    return () => {
+      stale = true;
+    };
   }, [talk.id, quiet, stepFree]);
 
   const best = preview?.candidates[0];
@@ -98,11 +106,10 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
     setError(null);
     try {
       const res = await api.holdSeat(talk.id, toTalkId, { quiet, stepFree });
-      const chosen = preview?.candidates.find((c) => c.talk.id === res.hold.talkId)?.talk;
-      if (chosen) {
-        setHold({ ...res, talk: chosen });
-        onSaved(chosen);
-      }
+      // The server may bind a different room if the chosen one just filled.
+      const chosen = preview?.candidates.find((c) => c.talk.id === res.hold.talkId)?.talk ?? (await api.talk(res.hold.talkId));
+      setHold({ ...res, talk: chosen });
+      onSaved(chosen);
     } catch {
       setError('Those seats just went. Capy is looking again.');
       api.planB(talk.id, { quiet, stepFree }).then(setPreview, () => undefined);
