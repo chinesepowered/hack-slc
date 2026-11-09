@@ -108,3 +108,13 @@ export type StreamEvent =
   | { type: 'agents'; data: AgentView[] }
   | { type: 'planb'; data: PlanBEvent }
   | { type: 'door'; data: { roomId: string; full: boolean } };
+
+export interface CapyMoodResponse {
+  mood: 'chill' | 'happy' | 'worried';
+  /** Where the mood came from: the Dash0 SLO, or the app's own recent Plan B latencies. */
+  source: 'dash0' | 'local';
+  /** Plan B decisions under 500 ms, as a share of all decisions in the window. */
+  goodRatio: number | null;
+  p95Ms: number | null;
+  detail: string;
+}
