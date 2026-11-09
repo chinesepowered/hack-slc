@@ -1,0 +1,112 @@
+# Single-node Elasticsearch: the app's data layer. Sized for the team
+# cluster's budget. mmap is off because raising vm.max_map_count needs a
+# privileged init container, which the host refuses. ML is off because
+# embeddings come from OpenAI, which saves the ML process's memory.
+apiVersion: v1
+kind: Service
+metadata:
+  name: es
+  labels:
+    app: es
+    app.kubernetes.io/name: elasticsearch
+    app.kubernetes.io/part-of: capykube
+spec:
+  selector:
+    app: es
+  ports:
+    - name: http
+      port: 9200
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es
+  labels:
+    app: es
+    app.kubernetes.io/name: elasticsearch
+    app.kubernetes.io/part-of: capykube
+spec:
+  serviceName: es
+  replicas: 1
+  selector:
+    matchLabels:
+      app: es
+  template:
+    metadata:
+      labels:
+        app: es
+        app.kubernetes.io/name: elasticsearch
+        app.kubernetes.io/part-of: capykube
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: elasticsearch
+          image: docker.elastic.co/elasticsearch/elasticsearch:9.2.1
+          ports:
+            - name: http
+              containerPort: 9200
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: node.store.allow_mmap
+              value: "false"
+            - name: xpack.security.enabled
+              value: "true"
+            - name: xpack.security.http.ssl.enabled
+              value: "false"
+            - name: xpack.security.transport.ssl.enabled
+              value: "false"
+            - name: xpack.ml.enabled
+              value: "false"
+            - name: cluster.routing.allocation.disk.threshold_enabled
+              value: "false"
+            - name: ES_JAVA_OPTS
+              value: "-Xms768m -Xmx768m"
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: capykube-secrets
+                  key: ELASTIC_PASSWORD
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1536Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - curl -fs -u "elastic:${ELASTIC_PASSWORD}" "http://localhost:9200/_cluster/health?local=true" >/dev/null
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi

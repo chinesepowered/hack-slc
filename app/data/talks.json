@@ -1,0 +1,2702 @@
+{
+  "note": "Synthetic schedule for the CapyKube demo. Every person and company is fictional.",
+  "embeddingModel": "text-embedding-3-small",
+  "dimensions": 512,
+  "talks": [
+    {
+      "id": "t-gb-k1",
+      "kind": "keynote",
+      "title": "Welcome to Salt Lake City: Cloud Native in 2026",
+      "abstract": "The opening keynote: where the community is, what changed this year, and what the next ten thousand contributors will need from us.",
+      "track": "Keynotes",
+      "level": "Beginner",
+      "tags": [
+        "keynote",
+        "community",
+        "state-of-cloud-native"
+      ],
+      "speakers": [
+        {
+          "name": "Dana Whitfield",
+          "company": "Open Cloud Collective"
+        }
+      ],
+      "roomId": "GB",
+      "slot": "K1",
+      "start": "2026-11-11T16:00:00Z",
+      "end": "2026-11-11T16:20:00Z",
+      "interest": 2600,
+      "captioned": true
+    },
+    {
+      "id": "t-gb-k2",
+      "kind": "keynote",
+      "title": "Ten Years of Kubernetes in Production: What We'd Do Again",
+      "abstract": "A decade of running clusters for a bank, a game studio and a hospital network, distilled into the decisions that aged well and the ones we quietly undid.",
+      "track": "Keynotes",
+      "level": "Beginner",
+      "tags": [
+        "keynote",
+        "production",
+        "lessons-learned"
+      ],
+      "speakers": [
+        {
+          "name": "Marcus Oyelaran",
+          "company": "Bramblewood Systems"
+        }
+      ],
+      "roomId": "GB",
+      "slot": "K2",
+      "start": "2026-11-11T16:25:00Z",
+      "end": "2026-11-11T16:45:00Z",
+      "interest": 2500,
+      "captioned": false
+    },
+    {
+      "id": "t-gb-k3",
+      "kind": "keynote",
+      "title": "Conferences for Everyone",
+      "abstract": "Captions, quiet rooms, step-free routes and first-timer guides: what it takes to make a room of ten thousand people feel welcoming, and how the community can help.",
+      "track": "Keynotes",
+      "level": "Beginner",
+      "tags": [
+        "keynote",
+        "inclusion",
+        "accessibility",
+        "community"
+      ],
+      "speakers": [
+        {
+          "name": "Ines Kowalczyk",
+          "company": "Hot Spring Labs"
+        }
+      ],
+      "roomId": "GB",
+      "slot": "K3",
+      "start": "2026-11-11T16:50:00Z",
+      "end": "2026-11-11T17:10:00Z",
+      "interest": 2400,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s1",
+      "kind": "session",
+      "title": "From Empty Repo to First Deployment in 18 Minutes",
+      "abstract": "At a 600-developer company, service onboarding used to require four tickets and an average of nine days before the first deployment. We’ll show how a Backstage template, opinionated defaults, and a disposable preview environment cut that to 18 minutes—and share the adoption metrics and escape hatches that kept the golden path useful rather than mandatory.",
+      "track": "Developer Experience",
+      "level": "Intermediate",
+      "tags": [
+        "developer-portal",
+        "service-onboarding",
+        "golden-paths",
+        "platform-engineering"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Quenlow",
+          "company": "Copper Finch Labs"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 127,
+      "captioned": true
+    },
+    {
+      "id": "t-151-s1",
+      "kind": "session",
+      "title": "Making On-Call Safer for Everyone on a Kubernetes Team",
+      "abstract": "After two engineers with different access needs struggled through the same noisy Kubernetes incident rotation, our platform team rebuilt its alert policies, runbooks, and handoff checklist. We will share the before-and-after paging numbers, the accommodations we tested with teammates, and a repeatable workshop for making on-call sustainable without lowering operational standards.",
+      "track": "Community & Inclusion",
+      "level": "Intermediate",
+      "tags": [
+        "on-call",
+        "accessibility",
+        "incident-response",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Tessa Marlow",
+          "company": "Mosslight Systems"
+        },
+        {
+          "name": "Ren Ibarra",
+          "company": "Mosslight Systems"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 143,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s1",
+      "kind": "session",
+      "title": "Who Still Has cluster-admin? A Practical RBAC Review",
+      "abstract": "After a compromised CI job inherited cluster-admin through a copied kubeconfig, our team found 41 stale bindings across 18 namespaces. This session walks through a repeatable RBAC review using kubectl, audit logs, and owner labels, then shows how to stage least-privilege changes without breaking deployments; attendees leave with a quarterly access-review checklist.",
+      "track": "Security",
+      "level": "Beginner",
+      "tags": [
+        "kubernetes",
+        "rbac",
+        "access-control",
+        "audit"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Voss",
+          "company": "Copper Finch Systems"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 253,
+      "captioned": true
+    },
+    {
+      "id": "t-155f-s1",
+      "kind": "session",
+      "title": "Keeping the Collector Fleet Boring at 140 Nodes",
+      "abstract": "After our OpenTelemetry Collector fleet grew to 140 nodes, config drift caused duplicate spans and a noisy two-hour incident. We’ll show the rollout plan we used—canary pipelines, component health checks, and rollback gates—and share a practical checklist for migrating workloads without losing telemetry or overwhelming backend teams.",
+      "track": "Observability",
+      "level": "Intermediate",
+      "tags": [
+        "opentelemetry",
+        "collector",
+        "deployment",
+        "reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Venn",
+          "company": "Juniper Arcworks"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 184,
+      "captioned": false
+    },
+    {
+      "id": "t-250a-s1",
+      "kind": "session",
+      "title": "When the Platform API Had an SLO",
+      "abstract": "After a cluster upgrade doubled deployment failures across 34 teams, we stopped treating the platform as a collection of services and defined SLOs for provisioning, deploys, and recovery. This talk walks through the event model, error budgets, and weekly review that cut failed platform requests by 61%, plus how to avoid turning internal SLOs into vanity dashboards.",
+      "track": "Platform Engineering",
+      "level": "Intermediate",
+      "tags": [
+        "platform-slo",
+        "reliability",
+        "error-budgets",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Mara Venn",
+          "company": "Northstar Foundry"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 211,
+      "captioned": true
+    },
+    {
+      "id": "t-250b-s1",
+      "kind": "session",
+      "title": "From Notebook to Argo: Reproducible Training Runs",
+      "abstract": "At a fintech team, engineers lost three days comparing runs because notebooks silently pulled different data snapshots and container tags. They moved training into Argo Workflows with immutable dataset manifests, pinned images, and cached preprocessing outputs. This session covers the DAG design, failure handling, and migration checklist that made reruns auditable without turning every experiment into platform work.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "argo-workflows",
+        "ml-training",
+        "reproducibility",
+        "data-lineage"
+      ],
+      "speakers": [
+        {
+          "name": "Ilyan Voss",
+          "company": "Lattice Orchard"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 154,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s1",
+      "kind": "session",
+      "title": "Watching the Kernel Watch You: Threat Hunting Without Sidecars",
+      "abstract": "Attackers love the blind spot between the container and the host. We trace process, file and network activity straight from the kernel to hunt intrusions in real time, with no sidecars and no agent per pod, and show the queries that found a cryptominer hiding in a CI runner.",
+      "track": "Networking & eBPF",
+      "level": "Intermediate",
+      "tags": [
+        "kernel-tracing",
+        "threat-hunting",
+        "runtime",
+        "sidecarless"
+      ],
+      "speakers": [
+        {
+          "name": "Mateo Silva",
+          "company": "Redfern Games"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 190,
+      "captioned": true
+    },
+    {
+      "id": "t-254-s1",
+      "kind": "session",
+      "title": "From OCI Image to WASI Component: A Deployment Path That Works",
+      "abstract": "We converted a small Go service into a WASI component, published it as an OCI artifact, and deployed it beside container workloads on Kubernetes. This talk walks through the toolchain, runtime configuration, and compatibility checks we needed, including one failed rollout caused by assuming a container image and a component were interchangeable. Attendees leave with a repeatable deployment checklist.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Intermediate",
+      "tags": [
+        "wasi",
+        "oci",
+        "kubernetes",
+        "deployment"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Voss",
+          "company": "Northstar Meshworks"
+        },
+        {
+          "name": "Talen Rook",
+          "company": "Copperleaf Systems"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 110,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s1",
+      "kind": "session",
+      "title": "Upgrading Kubernetes Without the 2 A.M. Surprise",
+      "abstract": "Our platform team upgraded 46 production clusters across three Kubernetes minor versions and found that API removals were only one source of trouble: admission webhooks and slow node drains caused the longest outages. We’ll share the compatibility checks, canary sequence, and rollback gates that cut our upgrade window from nine days to three, plus a runbook you can adapt to your fleet.",
+      "track": "Operations & Reliability",
+      "level": "Intermediate",
+      "tags": [
+        "kubernetes-upgrades",
+        "cluster-operations",
+        "change-management",
+        "reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Vellin",
+          "company": "Northstar Tern Systems"
+        },
+        {
+          "name": "Oren Dask",
+          "company": "Lattice Harbor"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 437,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s1",
+      "kind": "session",
+      "title": "CSI Migration Without a 3 a.m. Storage Outage",
+      "abstract": "We moved 1,800 production PVCs across three Kubernetes clusters from an in-tree provisioner to CSI without pausing workloads, but our first plan exposed a reclaim-policy mismatch that would have deleted 214 volumes. This session walks through inventory, staged StorageClass migration, rollback gates, and the checks we now automate before touching a claim.",
+      "track": "Storage & Data",
+      "level": "Intermediate",
+      "tags": [
+        "csi",
+        "persistent-volumes",
+        "migration",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Mira Venn",
+          "company": "BrindleStack"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 292,
+      "captioned": true
+    },
+    {
+      "id": "t-355c-s1",
+      "kind": "session",
+      "title": "The Namespace Bill: Making Kubernetes Costs Actionable",
+      "abstract": "After three quarters of arguing over shared-cluster invoices, our platform team built a namespace-level showback pipeline with Kubernetes labels, OpenCost, and Prometheus—and found 18% of spend had no accountable owner. We’ll cover allocation rules for idle capacity, shared services, and missing labels, plus the rollout that got 14 product teams fixing their own cost dashboards.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "finops",
+        "open-cost",
+        "showback",
+        "kubernetes-cost"
+      ],
+      "speakers": [
+        {
+          "name": "Mara Venn",
+          "company": "Quarrylight Systems"
+        },
+        {
+          "name": "Tobin Kess",
+          "company": "Quarrylight Systems"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 171,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s1",
+      "kind": "session",
+      "title": "The CRD Upgrade That Deleted 18% of Our Objects",
+      "abstract": "A conversion webhook rollout across 40 clusters exposed a storage-version bug that silently dropped fields from 18% of custom resources, and our rollback plan made it worse. We’ll walk through the reproduction, storage-version migration checks, and a staged upgrade test you can add to CI before shipping your next CRD.",
+      "track": "Maintainer Track",
+      "level": "Advanced",
+      "tags": [
+        "kubernetes",
+        "crd",
+        "api-compatibility",
+        "upgrade-testing"
+      ],
+      "speakers": [
+        {
+          "name": "Mara Vellin",
+          "company": "Cloudbriar Systems"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S1",
+      "start": "2026-11-11T18:00:00Z",
+      "end": "2026-11-11T18:30:00Z",
+      "interest": 93,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s2",
+      "kind": "session",
+      "title": "Make Kubernetes Integration Tests Finish Before Lunch",
+      "abstract": "Our Kubernetes integration suite took 74 minutes and routinely failed for reasons unrelated to code; developers stopped trusting it. We’ll walk through how we split tests by dependency, reused immutable build artifacts, and reserved real-cluster checks for the cases that needed them, bringing median feedback to 16 minutes without hiding flaky tests.",
+      "track": "Developer Experience",
+      "level": "Intermediate",
+      "tags": [
+        "integration-testing",
+        "ci-cd",
+        "test-reliability",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Oren Vask",
+          "company": "Tumbleweed Grid"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 155,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s2",
+      "kind": "session",
+      "title": "A Translation Pipeline for Runbooks That Doesn't Rot",
+      "abstract": "Our platform group found that translated runbooks fell out of date within weeks because every upstream edit triggered a manual copy across four languages. We will walk through the Git-based translation workflow, glossary checks, and release gates we built around Kubernetes incident procedures, including a case where a stale command caused a failed handoff and how we now catch it.",
+      "track": "Community & Inclusion",
+      "level": "Intermediate",
+      "tags": [
+        "documentation",
+        "localization",
+        "runbooks",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Omar Vey",
+          "company": "Copper Finch Cloud"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 136,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s2",
+      "kind": "session",
+      "title": "Short-Lived Identity for Workloads, Without the Credential Sprawl",
+      "abstract": "A platform team replaced static cloud credentials in 120 Kubernetes workloads with short-lived, audience-bound tokens, but discovered three incompatible identity paths across clusters. We compare projected service-account tokens, SPIFFE/SPIRE, and cloud federation, then demonstrate a staged rollout with failure metrics and rollback gates attendees can adapt to their own environments.",
+      "track": "Security",
+      "level": "Intermediate",
+      "tags": [
+        "workload-identity",
+        "kubernetes",
+        "spiffe",
+        "cloud-security"
+      ],
+      "speakers": [
+        {
+          "name": "Tomas Wren",
+          "company": "Morrowglass Labs"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 182,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s2",
+      "kind": "session",
+      "title": "Programmable Kernels for Observability Engineers",
+      "abstract": "You do not need to be a kernel hacker to get kernel-level visibility. A gentle, demo-heavy introduction to attaching small safe programs to the kernel for latency, DNS and TCP insight, and exporting it all as OpenTelemetry.",
+      "track": "Observability",
+      "level": "Beginner",
+      "tags": [
+        "ebpf",
+        "tracing",
+        "observability",
+        "kernel"
+      ],
+      "speakers": [
+        {
+          "name": "Chloe Martin",
+          "company": "Tidewater Analytics"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 230,
+      "captioned": false
+    },
+    {
+      "id": "t-250a-s2",
+      "kind": "session",
+      "title": "Showback Without Spreadsheet Archaeology",
+      "abstract": "At 1,200 namespaces, our monthly Kubernetes showback was six weeks late because labels drifted and shared services disappeared into an “other” bucket. We combined OpenCost data with a small ownership registry, published confidence scores beside each team’s spend, and reduced unattributed compute from 27% to 4%; attendees will leave with the allocation rules and cleanup workflow we used.",
+      "track": "Platform Engineering",
+      "level": "Intermediate",
+      "tags": [
+        "finops",
+        "opencost",
+        "cost-allocation",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Tomas Ilyan",
+          "company": "Copperfern Systems"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 201,
+      "captioned": false
+    },
+    {
+      "id": "t-250b-s2",
+      "kind": "session",
+      "title": "Serving LLMs on Kubernetes Without Melting Your GPUs",
+      "abstract": "Batching, KV-cache-aware routing and scale-to-zero for model servers: how we serve a dozen open models on a shared GPU pool, keep p99 latency under a second, and stopped paging the ML team every time traffic doubled.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "llm-serving",
+        "gpu",
+        "autoscaling",
+        "inference",
+        "ai-infrastructure"
+      ],
+      "speakers": [
+        {
+          "name": "Yusuf Demir",
+          "company": "Lumen Assist"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 520,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s2",
+      "kind": "session",
+      "title": "Replacing kube-proxy Without Replacing Your Weekend",
+      "abstract": "At 400 nodes, our kube-proxy replacement cut service translation overhead but exposed assumptions in health checks, NodePort behavior, and rollback procedures. We’ll walk through a staged migration to Cilium, the packet-level checks we used at each step, and the failure signals that helped us stop before a partial rollout became an outage.",
+      "track": "Networking & eBPF",
+      "level": "Intermediate",
+      "tags": [
+        "cilium",
+        "kube-proxy",
+        "migration",
+        "load-balancing"
+      ],
+      "speakers": [
+        {
+          "name": "Mara Venn",
+          "company": "Northwind Meshworks"
+        },
+        {
+          "name": "Ilan Ro",
+          "company": "Copperleaf Systems"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 88,
+      "captioned": true
+    },
+    {
+      "id": "t-254-s2",
+      "kind": "session",
+      "title": "Chasing the First-Request Stall in Serverless Wasm",
+      "abstract": "Our event-driven Wasm service averaged 8 ms after startup, but its first request sometimes took more than 400 ms. We traced the delay across module loading, compilation, and connection setup, then tested prewarming and compiled-module caching under burst traffic. See the measurements, the trade-offs, and a practical method for deciding whether cold-start work belongs in your runtime or application.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Intermediate",
+      "tags": [
+        "cold-start",
+        "serverless",
+        "performance",
+        "benchmarking"
+      ],
+      "speakers": [
+        {
+          "name": "Elian Kade",
+          "company": "Blueglen Compute"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 55,
+      "captioned": true
+    },
+    {
+      "id": "t-355a-s2",
+      "kind": "session",
+      "title": "Autoscaling That Knows When Not to Scale",
+      "abstract": "During a holiday traffic spike, our HPA added pods faster than the database could serve them, turning a capacity problem into a retry storm. This session walks through the queue-depth signals, scale-up limits, and load tests we used to stabilize the service, with concrete guidance for pairing Kubernetes autoscaling with downstream capacity constraints.",
+      "track": "Operations & Reliability",
+      "level": "Intermediate",
+      "tags": [
+        "autoscaling",
+        "kubernetes",
+        "capacity-planning",
+        "incident-response"
+      ],
+      "speakers": [
+        {
+          "name": "Talia Fen",
+          "company": "Copper Finch Cloud"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 413,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s2",
+      "kind": "session",
+      "title": "When etcd Became the Storage Bottleneck",
+      "abstract": "A control-plane upgrade pushed our 6,000-node fleet past 80% etcd disk usage, and API writes began timing out even though the storage cluster looked healthy. We’ll show how compaction, defragmentation, backend quota, and disk latency interacted, then share the alerts and maintenance runbook that brought write p99 below 40 milliseconds.",
+      "track": "Storage & Data",
+      "level": "Advanced",
+      "tags": [
+        "etcd",
+        "control-plane",
+        "observability",
+        "performance"
+      ],
+      "speakers": [
+        {
+          "name": "Tomas Rill",
+          "company": "Quarrylight Systems"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 254,
+      "captioned": false
+    },
+    {
+      "id": "t-355c-s2",
+      "kind": "session",
+      "title": "Requests, Limits, and the P95 Trap",
+      "abstract": "A blanket CPU-rightsizing campaign cut our cluster requests by 31%, then pushed checkout latency past its SLO during a holiday peak. We’ll show how we combined VPA recommendations, Prometheus histograms, and load tests to distinguish safe request reductions from false savings, and share a staged rollout checklist attendees can adapt to their own services.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "rightsizing",
+        "kubernetes",
+        "resource-requests",
+        "slo"
+      ],
+      "speakers": [
+        {
+          "name": "Ilan Rusk",
+          "company": "Pinecone Harbor"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 183,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s2",
+      "kind": "session",
+      "title": "Flakes Aren’t Random: Triage E2E Failures at Scale",
+      "abstract": "Our Kubernetes end-to-end suite grew from 900 to 6,400 tests, but reruns hid real regressions and burned 11,000 CI minutes each week. We’ll show how we grouped failures by signature, captured node and control-plane artifacts automatically, and used quarantine budgets to cut median triage time from two days to 35 minutes.",
+      "track": "Maintainer Track",
+      "level": "Intermediate",
+      "tags": [
+        "kubernetes",
+        "testing",
+        "ci",
+        "debugging"
+      ],
+      "speakers": [
+        {
+          "name": "Jalen Oru",
+          "company": "Northloop Foundry"
+        },
+        {
+          "name": "Tessa Marwick",
+          "company": "Northloop Foundry"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S2",
+      "start": "2026-11-11T18:45:00Z",
+      "end": "2026-11-11T19:15:00Z",
+      "interest": 111,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s3",
+      "kind": "session",
+      "title": "Stop Hand-Editing YAML: A Typed Config Workflow with CUE",
+      "abstract": "A small platform team inherited 43 nearly identical Helm values files, and a missed resource limit caused a production outage. We’ll demonstrate a CUE-based workflow that validates service inputs, generates Kubernetes manifests, and reports useful errors before deployment; attendees will leave with a migration pattern for introducing typed configuration without rewriting every chart.",
+      "track": "Developer Experience",
+      "level": "Intermediate",
+      "tags": [
+        "cue",
+        "configuration",
+        "helm",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Selka Dorn",
+          "company": "Blue Kestrel Works"
+        },
+        {
+          "name": "Pavel Ruun",
+          "company": "Mica Harbor"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 204,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s3",
+      "kind": "session",
+      "title": "The Quiet Channel: Designing Async Paths Into OSS Decisions",
+      "abstract": "A working group with contributors spread across 11 time zones kept making decisions in meetings that half its maintainers could not attend. We will show the async proposal template, decision window, and escalation rule we introduced, then compare participation and decision turnaround over six months so attendees can adapt the system without turning every thread into a vote.",
+      "track": "Community & Inclusion",
+      "level": "Intermediate",
+      "tags": [
+        "open-source",
+        "async-work",
+        "governance",
+        "community"
+      ],
+      "speakers": [
+        {
+          "name": "Pia Solven",
+          "company": "Ternary Orchard"
+        },
+        {
+          "name": "Dax Nori",
+          "company": "Ternary Orchard"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 112,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s3",
+      "kind": "session",
+      "title": "From Observed Flows to Enforced Network Policies",
+      "abstract": "When default-deny network policies cut traffic between 14 services, the outage came from undocumented DNS and metrics flows, not application dependencies. We share a Cilium-based rollout pattern that inventories flows, generates candidate policies, and tests them in shadow stages, including the dashboards and rollback signals that helped us move from observation to enforcement safely.",
+      "track": "Security",
+      "level": "Intermediate",
+      "tags": [
+        "network-policy",
+        "cilium",
+        "kubernetes",
+        "segmentation"
+      ],
+      "speakers": [
+        {
+          "name": "Nia Calder",
+          "company": "Blue Orchard Works"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 208,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s3",
+      "kind": "session",
+      "title": "The Label That Took Prometheus from 8M to 31M Series",
+      "abstract": "One unbounded tenant label pushed our Prometheus deployment from 8 million to 31 million active series in a week. We’ll walk through the query and relabeling changes that brought it below 10 million, plus a repeatable process for finding expensive labels before they turn a routine release into a storage incident.",
+      "track": "Observability",
+      "level": "Intermediate",
+      "tags": [
+        "prometheus",
+        "cardinality",
+        "metrics",
+        "cost-optimization"
+      ],
+      "speakers": [
+        {
+          "name": "Tovan Rusk",
+          "company": "Copper Finch Computing"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 158,
+      "captioned": true
+    },
+    {
+      "id": "t-250a-s3",
+      "kind": "session",
+      "title": "How We Split a 900-Node Cluster Without a Freeze",
+      "abstract": "Fourteen product teams shared one 900-node cluster, where noisy neighbors and maintenance windows had become release blockers. We divided workloads into smaller clusters using measured dependency maps, staged traffic and data moves over six weeks, and kept deploys flowing throughout; attendees will get our cutover checklist and the signals that told us when a team was ready to move.",
+      "track": "Platform Engineering",
+      "level": "Advanced",
+      "tags": [
+        "cluster-migration",
+        "multi-cluster",
+        "kubernetes",
+        "platform-operations"
+      ],
+      "speakers": [
+        {
+          "name": "Inez Calder",
+          "company": "Lattice Harbor"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 158,
+      "captioned": true
+    },
+    {
+      "id": "t-250b-s3",
+      "kind": "session",
+      "title": "Signed Models, Not Wishful Thinking",
+      "abstract": "A leaked CI token once let an unsigned model artifact reach a staging namespace, where its digest changed between validation and deployment. We will walk through signing model bundles with cosign, recording provenance in an OCI registry, and enforcing verification with Kubernetes admission policy, then share the rollout sequence and exception path that kept research iteration moving.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Advanced",
+      "tags": [
+        "supply-chain-security",
+        "model-artifacts",
+        "cosign",
+        "admission-control"
+      ],
+      "speakers": [
+        {
+          "name": "Renna Sol",
+          "company": "Glasswing Foundry"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 244,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s3",
+      "kind": "session",
+      "title": "The 9,000-Byte Packet That Never Arrived",
+      "abstract": "A cluster upgrade introduced intermittent timeouts only for large responses: small health checks passed, while tunneled traffic quietly hit an MTU limit. We’ll trace the issue across pods, Geneve, and underlay interfaces, then share a repeatable packet-capture and configuration checklist for validating MTU assumptions in Kubernetes networks.",
+      "track": "Networking & eBPF",
+      "level": "Beginner",
+      "tags": [
+        "mtu",
+        "kubernetes-networking",
+        "geneve",
+        "troubleshooting"
+      ],
+      "speakers": [
+        {
+          "name": "Tess Arlow",
+          "company": "Brightforge Cloud"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 86,
+      "captioned": false
+    },
+    {
+      "id": "t-254-s3",
+      "kind": "session",
+      "title": "OpenTelemetry for Wasm: Traces Across the Host Boundary",
+      "abstract": "When a request crossed from an Envoy proxy into a Wasm component and back to a Kubernetes service, our traces lost both context and useful names. We show how we propagated trace context, added host-side spans, and handled missing runtime attributes without overwhelming Prometheus or our collector. Attendees get a working instrumentation pattern and a list of gaps to test in their own stack.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Advanced",
+      "tags": [
+        "opentelemetry",
+        "observability",
+        "envoy",
+        "tracing"
+      ],
+      "speakers": [
+        {
+          "name": "Sera Quill",
+          "company": "Juniper Arc Labs"
+        },
+        {
+          "name": "Bram Iver",
+          "company": "Lattice Harbor"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 58,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s3",
+      "kind": "session",
+      "title": "The 10x Telemetry Bill: Finding Cardinality Before It Finds You",
+      "abstract": "A new checkout label pushed our Prometheus series count from 1.8 million to 19 million in under an hour, slowing queries just as on-call needed them. We’ll show how we traced the label explosion, added budget alerts and review checks, and safely removed the series without losing incident visibility; attendees will leave with a practical cardinality audit checklist.",
+      "track": "Operations & Reliability",
+      "level": "Intermediate",
+      "tags": [
+        "prometheus",
+        "observability",
+        "metrics",
+        "cost-management"
+      ],
+      "speakers": [
+        {
+          "name": "Juno Pell",
+          "company": "Mica Ridge Works"
+        },
+        {
+          "name": "Bram Olt",
+          "company": "Quiet Current Labs"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 344,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s3",
+      "kind": "session",
+      "title": "Snapshots Are Not Backups: A Restore Drill for Kubernetes Data",
+      "abstract": "Our first recovery test restored volumes successfully but brought back an application with stale credentials and missing object-store metadata. We’ll demonstrate a repeatable restore drill using CSI snapshots, Velero, and application-level checks, including how we cut recovery time from 5 hours to 52 minutes across 30 stateful services.",
+      "track": "Storage & Data",
+      "level": "Intermediate",
+      "tags": [
+        "backup",
+        "disaster-recovery",
+        "velero",
+        "csi"
+      ],
+      "speakers": [
+        {
+          "name": "Leena Moss",
+          "company": "Cloudweld Works"
+        },
+        {
+          "name": "Pavel Neri",
+          "company": "Ternary Harbor"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 316,
+      "captioned": false
+    },
+    {
+      "id": "t-355c-s3",
+      "kind": "session",
+      "title": "PVCs, Snapshots, and the Storage Bill Nobody Owned",
+      "abstract": "Our monthly cloud bill showed a 2.4x increase in block storage, while application teams reported no growth in active data. We traced the gap to unattached volumes, forgotten snapshots, and oversized claims; this session covers the inventory job, retention policies, and safe cleanup workflow that recovered 38 TB without deleting a single production volume.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "storage",
+        "persistent-volumes",
+        "cost-optimization",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Sela Dorn",
+          "company": "Copperfield Orbit"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 101,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s3",
+      "kind": "session",
+      "title": "The Restore Drill That Found Our Missing etcd Backups",
+      "abstract": "We believed our etcd snapshots were restorable until a quarterly drill revealed that encryption keys had expired and the newest usable backup was 19 days old. This session shares our recovery runbook, the failure-injection tests we added, and the measurable checks that now prove a snapshot can bring a control plane back within our 45-minute target.",
+      "track": "Maintainer Track",
+      "level": "Advanced",
+      "tags": [
+        "etcd",
+        "disaster-recovery",
+        "kubernetes",
+        "operations"
+      ],
+      "speakers": [
+        {
+          "name": "Ivo Saren",
+          "company": "Redfern Compute"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S3",
+      "start": "2026-11-11T19:30:00Z",
+      "end": "2026-11-11T20:00:00Z",
+      "interest": 112,
+      "captioned": true
+    },
+    {
+      "id": "t-150a-s4",
+      "kind": "session",
+      "title": "Inner Loop Bliss: Hot-Reloading Into a Remote Cluster",
+      "abstract": "Your laptop is not production, but your feedback loop can feel like it. We show how our developers edit code locally and see it running in a real remote cluster in under two seconds, with debuggers, logs and traces attached.",
+      "track": "Developer Experience",
+      "level": "Beginner",
+      "tags": [
+        "developer-experience",
+        "inner-loop",
+        "dev-environments",
+        "productivity"
+      ],
+      "speakers": [
+        {
+          "name": "Jonah Reyes",
+          "company": "Paperkite"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 150,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s4",
+      "kind": "session",
+      "title": "Your First KubeCon Talk: Notes From the Program Committee",
+      "abstract": "Program committee members share what makes a proposal stand out, why most rejections have nothing to do with quality, and how first-time speakers can find a mentor for their next submission.",
+      "track": "Community & Inclusion",
+      "level": "Beginner",
+      "tags": [
+        "cfp",
+        "speaking",
+        "community",
+        "mentorship"
+      ],
+      "speakers": [
+        {
+          "name": "Amara Nwosu",
+          "company": "Open Cloud Collective"
+        },
+        {
+          "name": "Kenji Watanabe",
+          "company": "Bluebird Health"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 90,
+      "captioned": true
+    },
+    {
+      "id": "t-155e-s4",
+      "kind": "session",
+      "title": "Hardening the Kernel Boundary: eBPF Runtime Security in Production",
+      "abstract": "Three years ago we moved runtime enforcement out of sidecars and into eBPF programs attached to LSM hooks. This talk walks through what that looks like across 4,000 nodes: blocking container escapes before they land, keeping policy in Git, surviving kernel upgrades, and the two outages we caused along the way.",
+      "track": "Security",
+      "level": "Advanced",
+      "tags": [
+        "ebpf",
+        "runtime-security",
+        "lsm",
+        "containers",
+        "threat-detection"
+      ],
+      "speakers": [
+        {
+          "name": "Priya Raman",
+          "company": "Lantern Labs"
+        },
+        {
+          "name": "Tomas Ferreira",
+          "company": "Lantern Labs"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 900,
+      "captioned": true
+    },
+    {
+      "id": "t-155f-s4",
+      "kind": "session",
+      "title": "Every Syscall Counts: Always-On Profiling with eBPF",
+      "abstract": "Continuous profiling used to mean choosing between overhead and blind spots. We feed an eBPF-based profiler into OpenTelemetry profiles next to our traces, hold it to a 1% overhead budget, and show three regressions it caught before customers did.",
+      "track": "Observability",
+      "level": "Intermediate",
+      "tags": [
+        "ebpf",
+        "profiling",
+        "opentelemetry",
+        "performance",
+        "continuous-profiling"
+      ],
+      "speakers": [
+        {
+          "name": "Ravi Menon",
+          "company": "Tidewater Analytics"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 240,
+      "captioned": false
+    },
+    {
+      "id": "t-250a-s4",
+      "kind": "session",
+      "title": "Golden Paths People Actually Walk",
+      "abstract": "We built twelve golden paths and teams used two. This is the story of measuring what developers really do, deleting most of our templates, and the one paved road that now carries 80% of new services.",
+      "track": "Platform Engineering",
+      "level": "Intermediate",
+      "tags": [
+        "platform-engineering",
+        "golden-paths",
+        "developer-portals",
+        "templates"
+      ],
+      "speakers": [
+        {
+          "name": "Hannah Cho",
+          "company": "Maplestone Retail"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 380,
+      "captioned": false
+    },
+    {
+      "id": "t-250b-s4",
+      "kind": "session",
+      "title": "GPUs Are a Shared Resource Now: Dynamic Resource Allocation in Practice",
+      "abstract": "Dynamic Resource Allocation turns GPUs from whole devices into claims you can share, slice and schedule fairly. We cover drivers, device classes and the quota model that ended GPU hoarding across our research teams.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Advanced",
+      "tags": [
+        "gpu",
+        "dynamic-resource-allocation",
+        "scheduling",
+        "ai-infrastructure"
+      ],
+      "speakers": [
+        {
+          "name": "Omar Haddad",
+          "company": "Quantum Pines"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 310,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s4",
+      "kind": "session",
+      "title": "Zero-Trust Datapaths: Identity-Aware Policy in the Kernel",
+      "abstract": "What if every packet carried a workload's identity and the kernel enforced who may talk to whom? We build identity-aware network policy on a programmable datapath, compare it with sidecar mTLS, and show a misbehaving pod cut off in microseconds instead of minutes.",
+      "track": "Networking & eBPF",
+      "level": "Intermediate",
+      "tags": [
+        "ebpf",
+        "zero-trust",
+        "network-policy",
+        "identity",
+        "datapath"
+      ],
+      "speakers": [
+        {
+          "name": "Aiko Tanabe",
+          "company": "Northwind Mesh"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 160,
+      "captioned": false
+    },
+    {
+      "id": "t-254-s4",
+      "kind": "session",
+      "title": "Sandboxes All the Way Down: Isolating Untrusted Workloads with WASM and microVMs",
+      "abstract": "Running other people's code is a promise about blast radius. We compare WebAssembly components, gVisor and microVMs for multi-tenant platforms: startup time, density, syscall surface, and what actually stopped a real escape attempt in our bug bounty.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Advanced",
+      "tags": [
+        "wasm",
+        "sandboxing",
+        "microvm",
+        "isolation",
+        "multi-tenancy"
+      ],
+      "speakers": [
+        {
+          "name": "Lena Brandt",
+          "company": "Copperline Compute"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 120,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s4",
+      "kind": "session",
+      "title": "Catching Container Escapes Before Your Pager Does",
+      "abstract": "Most breakout attempts look like a burst of odd syscalls minutes before anything pages. Our SRE team turned kernel-level signals into high-confidence alerts, cut false positives by 90%, and wrote runbooks a sleepy on-call engineer can follow at 3 a.m.",
+      "track": "Operations & Reliability",
+      "level": "Intermediate",
+      "tags": [
+        "runtime-detection",
+        "incident-response",
+        "syscalls",
+        "on-call",
+        "containers"
+      ],
+      "speakers": [
+        {
+          "name": "Gabriel Osei",
+          "company": "Juniper Freight"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 300,
+      "captioned": true
+    },
+    {
+      "id": "t-355b-s4",
+      "kind": "session",
+      "title": "Postgres on Kubernetes: The Failover Drill We Run Every Friday",
+      "abstract": "Every Friday at 2 p.m. we kill our primary database on purpose. Here is the operator setup, the backups we actually restore from, and the drill checklist that turned database failover from an incident into a non-event.",
+      "track": "Storage & Data",
+      "level": "Intermediate",
+      "tags": [
+        "postgres",
+        "operators",
+        "disaster-recovery",
+        "stateful-workloads"
+      ],
+      "speakers": [
+        {
+          "name": "Elena Petrova",
+          "company": "Cobalt Ledger"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 260,
+      "captioned": false
+    },
+    {
+      "id": "t-355c-s4",
+      "kind": "session",
+      "title": "Carbon-Aware Autoscaling: Moving Batch Work to Greener Hours",
+      "abstract": "Not every job has to run now. We shift batch workloads toward hours when the grid is cleaner using event-driven autoscaling and carbon intensity signals, and share the dashboards that convinced finance and the sustainability team at once.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "sustainability",
+        "autoscaling",
+        "batch",
+        "event-driven"
+      ],
+      "speakers": [
+        {
+          "name": "Noor Aziz",
+          "company": "Evergreen Data"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 120,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s4",
+      "kind": "session",
+      "title": "Workload Identity Deep Dive: Tokens, Certificates and RBAC Footguns",
+      "abstract": "Projected service account tokens, structured authentication configuration and pod certificates: a maintainer-led tour of how workloads prove who they are in Kubernetes, and the RBAC mistakes we still see in every audit.",
+      "track": "Maintainer Track",
+      "level": "Advanced",
+      "tags": [
+        "workload-identity",
+        "rbac",
+        "service-accounts",
+        "authentication",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Sofia Lindqvist",
+          "company": "Granite Peak Software"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S4",
+      "start": "2026-11-11T21:00:00Z",
+      "end": "2026-11-11T21:30:00Z",
+      "interest": 110,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s5",
+      "kind": "session",
+      "title": "Debug the Pod You Have, Not the Pod You Wish You Had",
+      "abstract": "When a production container crashed without a shell or debugging tools, our on-call team lost 38 minutes building a custom image just to inspect DNS and mounted files. We’ll show a safer workflow using ephemeral containers, targeted RBAC, and documented kubectl commands, then cover the cleanup and audit controls that made it acceptable to security.",
+      "track": "Developer Experience",
+      "level": "Intermediate",
+      "tags": [
+        "kubernetes-debugging",
+        "ephemeral-containers",
+        "rbac",
+        "incident-response"
+      ],
+      "speakers": [
+        {
+          "name": "Tavi Merrow",
+          "company": "Juniper Kite Systems"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 189,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s5",
+      "kind": "session",
+      "title": "Screen Readers, YAML, and the Dashboard Nobody Could Use",
+      "abstract": "Our internal service catalog looked polished until a blind SRE tried to use it during a cluster upgrade and could not identify which status belonged to which namespace. We will demonstrate a keyboard-and-screen-reader audit of three common dashboard patterns, the fixes that cut task completion from 9 minutes to 3, and a checklist teams can apply to Grafana-style views.",
+      "track": "Community & Inclusion",
+      "level": "Intermediate",
+      "tags": [
+        "accessibility",
+        "observability",
+        "dashboards",
+        "screen-readers"
+      ],
+      "speakers": [
+        {
+          "name": "Lio Fenwick",
+          "company": "Blue Ember Compute"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 68,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s5",
+      "kind": "session",
+      "title": "Reconstructing a Kubernetes Incident from the Logs You Have",
+      "abstract": "During a namespace escape investigation, Kubernetes audit logs showed who issued requests but not which workload image was running at the time. We built a low-cost evidence pipeline joining audit events, container runtime metadata, and cloud control-plane logs; attendees will see retention choices, a timeline query, and a tabletop workflow completed in under 30 minutes.",
+      "track": "Security",
+      "level": "Advanced",
+      "tags": [
+        "incident-response",
+        "kubernetes",
+        "audit-logs",
+        "forensics"
+      ],
+      "speakers": [
+        {
+          "name": "Eli Navarro",
+          "company": "Lantern Vale Security"
+        },
+        {
+          "name": "Sana Ilyan",
+          "company": "Lantern Vale Security"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 207,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s5",
+      "kind": "session",
+      "title": "Tracing the Message After the HTTP Request Is Gone",
+      "abstract": "Our checkout traces disappeared at the exact point where requests crossed Kafka, leaving teams to correlate a 900 ms delay by hand. We’ll demonstrate W3C trace-context propagation through producers, consumers, and retries, then compare two sampling policies and show how to verify end-to-end spans without flooding the tracing backend.",
+      "track": "Observability",
+      "level": "Intermediate",
+      "tags": [
+        "distributed-tracing",
+        "kafka",
+        "opentelemetry",
+        "sampling"
+      ],
+      "speakers": [
+        {
+          "name": "Sela Marrin",
+          "company": "Mallowbyte Works"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 174,
+      "captioned": true
+    },
+    {
+      "id": "t-250a-s5",
+      "kind": "session",
+      "title": "Kyverno Policies Without the Friday-Night Exception Queue",
+      "abstract": "Our first Kyverno rollout blocked 19% of production changes, mostly for reasons engineers could not diagnose from CI. We moved from audit to narrowly scoped enforcement, added policy tests and actionable messages, and cut emergency exemptions from 42 a month to 6; this session shares the rollout sequence, exception contract, and metrics we used to keep policy useful rather than punitive.",
+      "track": "Platform Engineering",
+      "level": "Intermediate",
+      "tags": [
+        "kyverno",
+        "policy-as-code",
+        "security",
+        "developer-experience"
+      ],
+      "speakers": [
+        {
+          "name": "Ravi Solen",
+          "company": "Morrowpeak Labs"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 368,
+      "captioned": false
+    },
+    {
+      "id": "t-250b-s5",
+      "kind": "session",
+      "title": "Keep Feature Engineering from Becoming Cluster Chaos",
+      "abstract": "A product-ranking team moved a 4-TB daily feature build from a long-lived VM to Spark jobs on Kubernetes, but its first rollout saturated shared storage and stalled training pods. They added partition-aware scheduling, object-store request limits, and checkpointed retries; the session shares the dashboard and tuning method that cut rebuild time from nine hours to three.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "feature-engineering",
+        "spark",
+        "data-pipelines",
+        "resource-management"
+      ],
+      "speakers": [
+        {
+          "name": "Omi Kest",
+          "company": "Cinderleaf Data"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 199,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s5",
+      "kind": "session",
+      "title": "XDP at the Edge: Absorbing a 40-Gbps Traffic Spike",
+      "abstract": "When a burst of unwanted UDP traffic saturated our ingress nodes, an XDP program dropped known-bad packets before they traversed the full stack. We’ll explain how we measured the 40-Gbps event, chose a safe fallback path, and tested rule updates under load, including the counters and safeguards we now require before production rollout.",
+      "track": "Networking & eBPF",
+      "level": "Advanced",
+      "tags": [
+        "xdp",
+        "ddos-mitigation",
+        "linux-networking",
+        "performance"
+      ],
+      "speakers": [
+        {
+          "name": "Davi Kestrel",
+          "company": "Rookwave Networks"
+        },
+        {
+          "name": "Nia Solberg",
+          "company": "Emberline Compute"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 163,
+      "captioned": true
+    },
+    {
+      "id": "t-254-s5",
+      "kind": "session",
+      "title": "Signing Wasm Artifacts Before They Reach the Cluster",
+      "abstract": "A component can be tiny and still arrive with unclear provenance. We built a CI policy that records source revision, pins the WASI toolchain, signs OCI artifacts with cosign, and verifies them before deployment; the first rollout caught a stale component that our image scanner had never examined. Learn how to connect build attestations to admission checks without slowing every developer push.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Intermediate",
+      "tags": [
+        "supply-chain",
+        "cosign",
+        "oci",
+        "policy"
+      ],
+      "speakers": [
+        {
+          "name": "Niko Vale",
+          "company": "Redfern Foundry"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 109,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s5",
+      "kind": "session",
+      "title": "When Cluster DNS Became the Outage",
+      "abstract": "A CoreDNS configuration rollout exposed a resolver-path mismatch that made roughly one in six requests fail across 120 services, while basic pod health checks stayed green. We’ll reconstruct the incident using query logs and packet captures, then demonstrate the cache, readiness, and rollout safeguards that reduced recovery time from 47 minutes to 11.",
+      "track": "Operations & Reliability",
+      "level": "Advanced",
+      "tags": [
+        "coredns",
+        "kubernetes-networking",
+        "incident-analysis",
+        "reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Sela Morven",
+          "company": "Blue Thimble Computing"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 363,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s5",
+      "kind": "session",
+      "title": "Putting NVMe Where the Pods Can Actually Use It",
+      "abstract": "We cut feature-store read latency by 63% after tracing uneven performance to NUMA placement, device discovery, and pods landing on the wrong nodes. This talk covers our Kubernetes device-plugin and topology-aware scheduling setup, the benchmark traps we hit, and the safeguards that keep local NVMe workloads from silently falling back to network storage.",
+      "track": "Storage & Data",
+      "level": "Advanced",
+      "tags": [
+        "nvme",
+        "topology",
+        "scheduling",
+        "performance"
+      ],
+      "speakers": [
+        {
+          "name": "Rhea Sol",
+          "company": "Copperleaf Orbit"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 321,
+      "captioned": true
+    },
+    {
+      "id": "t-355c-s5",
+      "kind": "session",
+      "title": "Who Pays for the Egress?",
+      "abstract": "When cross-zone traffic doubled after a service split, our teams could see request rates but not which deployments were driving network charges. We’ll walk through an Envoy and OpenTelemetry-based attribution pipeline, the topology changes that lowered monthly egress costs by 22%, and the dashboard queries attendees can use to spot expensive traffic paths.",
+      "track": "Cost & Sustainability",
+      "level": "Advanced",
+      "tags": [
+        "networking",
+        "egress",
+        "opentelemetry",
+        "cloud-cost"
+      ],
+      "speakers": [
+        {
+          "name": "Dev Arlen",
+          "company": "Rillstone Works"
+        },
+        {
+          "name": "Nima Sol",
+          "company": "Rillstone Works"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 105,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s5",
+      "kind": "session",
+      "title": "One Label, 40 Million Series: Taming Prometheus Cardinality",
+      "abstract": "A new tenant identifier in a shared exporter pushed our Prometheus fleet past 40 million active series and turned routine queries into timeouts. We’ll trace the label through instrumentation and dashboards, explain the guardrails we added in review and at runtime, and share a migration plan that reduced series count by 72% without losing useful tenant-level signals.",
+      "track": "Maintainer Track",
+      "level": "Intermediate",
+      "tags": [
+        "prometheus",
+        "observability",
+        "metrics",
+        "cardinality"
+      ],
+      "speakers": [
+        {
+          "name": "Nia Calder",
+          "company": "Juniper Vale Labs"
+        },
+        {
+          "name": "Oren Pell",
+          "company": "Juniper Vale Labs"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S5",
+      "start": "2026-11-11T21:45:00Z",
+      "end": "2026-11-11T22:15:00Z",
+      "interest": 59,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s6",
+      "kind": "session",
+      "title": "Operator Tests That Catch Reconciliation Bugs Before Cluster Day",
+      "abstract": "A controller-runtime fake client let our operator tests pass while real API-server behavior still broke upgrades in customer clusters. We’ll compare fake-client tests with envtest and focused cluster smoke tests, including a concrete suite for finalizers, status updates, and webhook defaults; attendees will learn how to choose the smallest test environment that catches each failure mode.",
+      "track": "Developer Experience",
+      "level": "Advanced",
+      "tags": [
+        "kubernetes-operators",
+        "envtest",
+        "testing",
+        "controller-runtime"
+      ],
+      "speakers": [
+        {
+          "name": "Nessa Vey",
+          "company": "Pebble Current"
+        },
+        {
+          "name": "Ilan Torsk",
+          "company": "Fable Peak Computing"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 99,
+      "captioned": true
+    },
+    {
+      "id": "t-151-s6",
+      "kind": "session",
+      "title": "From First Issue to Maintainer: A Measured Mentorship Funnel",
+      "abstract": "At a 40-person cloud platform project, newcomers opened issues but few made a second contribution; maintainers assumed the problem was technical complexity. We will share a six-week pairing and review pathway, including mentor time caps, newcomer feedback, and the change from 12% to 38% returning contributors, plus a lightweight way to tell whether the funnel is welcoming or merely busy.",
+      "track": "Community & Inclusion",
+      "level": "Beginner",
+      "tags": [
+        "mentorship",
+        "open-source",
+        "contributor-onboarding",
+        "community"
+      ],
+      "speakers": [
+        {
+          "name": "Nell Ardent",
+          "company": "Juniper Vale Software"
+        },
+        {
+          "name": "Savi Kest",
+          "company": "Juniper Vale Software"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 135,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s6",
+      "kind": "session",
+      "title": "Rotating Kubernetes Secrets Without the Midnight Cutover",
+      "abstract": "An internal review found 286 Kubernetes Secrets still stored as readable base64 in etcd backups, despite encryption being enabled on new clusters. We demonstrate a migration from legacy values files to external secret delivery, key rotation without coordinated downtime, and backup verification, with a practical decision matrix for teams choosing between KMS-backed encryption and a secrets operator.",
+      "track": "Security",
+      "level": "Beginner",
+      "tags": [
+        "secrets-management",
+        "kubernetes",
+        "encryption",
+        "key-rotation"
+      ],
+      "speakers": [
+        {
+          "name": "June Armitage",
+          "company": "Pebblewake Engineering"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 346,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s6",
+      "kind": "session",
+      "title": "Alert on the Error Budget, Not the Dashboard Color",
+      "abstract": "One noisy alert paged our on-call 23 times during a week when customers saw no meaningful impact, while a real checkout regression waited 18 minutes for detection. We’ll build multiwindow, multi-burn-rate alerts from Prometheus metrics, explain threshold choices, and leave with a testable template for tying pages to error-budget policy.",
+      "track": "Observability",
+      "level": "Intermediate",
+      "tags": [
+        "sre",
+        "alerting",
+        "prometheus",
+        "slos"
+      ],
+      "speakers": [
+        {
+          "name": "Eren Solvi",
+          "company": "Lattice Fern"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 175,
+      "captioned": false
+    },
+    {
+      "id": "t-250a-s6",
+      "kind": "session",
+      "title": "Platform Teams Are Product Teams: Lessons From 40 Internal Customers",
+      "abstract": "Our platform team stopped taking tickets and started running user research. We share the interviews, the roadmap we threw away, and how treating forty internal teams as customers doubled adoption in a year.",
+      "track": "Platform Engineering",
+      "level": "Beginner",
+      "tags": [
+        "platform-engineering",
+        "product-management",
+        "developer-experience",
+        "team-topologies"
+      ],
+      "speakers": [
+        {
+          "name": "Grace Mbeki",
+          "company": "Harborlight Insurance"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 700,
+      "captioned": true
+    },
+    {
+      "id": "t-250b-s6",
+      "kind": "session",
+      "title": "Drift Alerts That Lead to an Action",
+      "abstract": "One team saw offline accuracy hold steady while a regional input feed quietly changed category values, degrading recommendations for 18% of requests. We will demonstrate a Kubernetes-friendly monitoring loop using OpenTelemetry traces, Prometheus counters, and scheduled slice checks, including how to set alert thresholds, assign an owner, and distinguish actionable drift from normal weekday variation.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "model-monitoring",
+        "data-drift",
+        "opentelemetry",
+        "prometheus"
+      ],
+      "speakers": [
+        {
+          "name": "Vela Norr",
+          "company": "Bluejay Metric Works"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 197,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s6",
+      "kind": "session",
+      "title": "Finding the Tail: eBPF Clues for TCP Latency",
+      "abstract": "A service’s p99 latency rose after a kernel update, even though request rate and CPU usage looked normal. We’ll show how we used eBPF to correlate retransmits, socket queues, and application spans across a 12-node test cluster, then turn those observations into a practical workflow for separating network delay from application backpressure.",
+      "track": "Networking & eBPF",
+      "level": "Intermediate",
+      "tags": [
+        "ebpf",
+        "tcp",
+        "latency",
+        "observability"
+      ],
+      "speakers": [
+        {
+          "name": "Oren Pike",
+          "company": "Juniper Vale Labs"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 124,
+      "captioned": true
+    },
+    {
+      "id": "t-254-s6",
+      "kind": "session",
+      "title": "Making Wasm Actors Useful in a Kubernetes Platform",
+      "abstract": "We ran a set of small event handlers as wasmCloud actors and connected them to NATS, Kubernetes services, and shared configuration. The talk covers where the actor model simplified retries and scaling, where capability bindings added operational work, and how we handled rolling upgrades across 30 workers. Attendees will leave with a decision guide for choosing actors over a conventional service or job.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Intermediate",
+      "tags": [
+        "wasmcloud",
+        "actors",
+        "nats",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Ona Merrow",
+          "company": "Silver Basin Software"
+        },
+        {
+          "name": "Jalen Firth",
+          "company": "Kestrel Ridge Works"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 122,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s6",
+      "kind": "session",
+      "title": "Running Stateful Workloads Through Node Drain Day",
+      "abstract": "Our Kubernetes node-pool refresh disrupted a payment database twice because disruption budgets looked healthy while storage attachment lagged behind pod eviction. We’ll explain the failure timeline and the changes we tested for drain pacing, topology, and recovery verification, including a repeatable game day that exposed a 14-minute failover gap before the next maintenance window.",
+      "track": "Operations & Reliability",
+      "level": "Advanced",
+      "tags": [
+        "stateful-workloads",
+        "storage",
+        "node-maintenance",
+        "disaster-recovery"
+      ],
+      "speakers": [
+        {
+          "name": "Ivo Renn",
+          "company": "Granite Loop Systems"
+        },
+        {
+          "name": "Pera Noll",
+          "company": "Juniper Vale Computing"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 378,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s6",
+      "kind": "session",
+      "title": "Who Owns the Storage Bill? Making PVC Costs Visible",
+      "abstract": "A shared platform team was paying for 11 terabytes of stranded volumes because ownership labels disappeared between Helm charts and dynamically provisioned claims. We’ll show how we joined Kubernetes inventory with cloud billing data, assigned costs to teams, and used a weekly report to reclaim 28% of unused capacity without surprising application owners.",
+      "track": "Storage & Data",
+      "level": "Intermediate",
+      "tags": [
+        "cost-management",
+        "persistent-volumes",
+        "finops",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Jonas Pell",
+          "company": "Mossline Cloud"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 200,
+      "captioned": false
+    },
+    {
+      "id": "t-355c-s6",
+      "kind": "session",
+      "title": "GPU Economics Beyond Utilization Percentages",
+      "abstract": "Our inference cluster reported 72% GPU utilization, yet cost per completed request varied by nearly threefold across models and batch sizes. We’ll explain how we measured tokens per dollar alongside queue time, memory pressure, and energy draw, then used those metrics to select instance shapes and serving configurations without sacrificing latency SLOs.",
+      "track": "Cost & Sustainability",
+      "level": "Advanced",
+      "tags": [
+        "gpu",
+        "inference",
+        "unit-economics",
+        "energy-efficiency"
+      ],
+      "speakers": [
+        {
+          "name": "Oren Pell",
+          "company": "Lantern Forge"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 163,
+      "captioned": true
+    },
+    {
+      "id": "t-355d-s6",
+      "kind": "session",
+      "title": "A Release Pipeline You Can Rebuild Six Months Later",
+      "abstract": "After a compromised runner forced us to verify every artifact in a Kubernetes operator release, we found that our build logs could not reproduce the binaries we had shipped. We’ll demonstrate the changes that made our pipeline hermetic, generated signed provenance and SBOMs, and let maintainers rebuild and compare a release from a clean environment in under 20 minutes.",
+      "track": "Maintainer Track",
+      "level": "Advanced",
+      "tags": [
+        "release-engineering",
+        "supply-chain-security",
+        "sbom",
+        "provenance"
+      ],
+      "speakers": [
+        {
+          "name": "Sora Dain",
+          "company": "Copperfinch Works"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S6",
+      "start": "2026-11-11T22:30:00Z",
+      "end": "2026-11-11T23:00:00Z",
+      "interest": 102,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s7",
+      "kind": "session",
+      "title": "The Platform Docs Were Right; Nobody Could Find Them",
+      "abstract": "Our internal platform docs had 120 pages, but support chat still answered the same questions 30 times a week. We’ll explain how we connected docs to service ownership, added task-based entry points, and measured search failures and repeat questions over two quarters; you’ll get a practical method for deciding what to rewrite, automate, or delete.",
+      "track": "Developer Experience",
+      "level": "Beginner",
+      "tags": [
+        "developer-documentation",
+        "platform-engineering",
+        "service-catalog",
+        "developer-feedback"
+      ],
+      "speakers": [
+        {
+          "name": "Evi Sorn",
+          "company": "Hollow Reed Software"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 106,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s7",
+      "kind": "session",
+      "title": "Incident Reviews Without Blame Across Language and Time Zones",
+      "abstract": "During a production outage spanning three regions, our postmortem meeting favored the people who were awake, fluent in the team's working language, and comfortable speaking on camera. We will explain how we moved to written timelines, translated prompts, and a no-blame facilitation rotation, and share what changed in action-item ownership and participation across the next five reviews.",
+      "track": "Community & Inclusion",
+      "level": "Intermediate",
+      "tags": [
+        "incident-response",
+        "psychological-safety",
+        "accessibility",
+        "distributed-teams"
+      ],
+      "speakers": [
+        {
+          "name": "Eli Varo",
+          "company": "Cloudberry Stackworks"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 152,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s7",
+      "kind": "session",
+      "title": "Your Supply Chain Ends at Runtime",
+      "abstract": "Signed images and SBOMs tell you what you meant to ship. Admission policy and runtime verification tell you what is actually running. We connect the two so a tampered image never starts and a drifted container gets caught within seconds.",
+      "track": "Security",
+      "level": "Intermediate",
+      "tags": [
+        "supply-chain",
+        "signing",
+        "admission-control",
+        "runtime-security"
+      ],
+      "speakers": [
+        {
+          "name": "Isabel Duarte",
+          "company": "Quillstack"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 360,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s7",
+      "kind": "session",
+      "title": "When the Log Buffer Fills During an Upgrade",
+      "abstract": "After a Kubernetes upgrade doubled our application log volume, Fluent Bit buffers filled and several teams lost the first minutes of an incident. We’ll trace the failure from container runtime to backend, then show tested buffer limits, backpressure settings, and dashboards attendees can adapt to validate log delivery under load.",
+      "track": "Observability",
+      "level": "Beginner",
+      "tags": [
+        "kubernetes",
+        "logging",
+        "fluent-bit",
+        "reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Nadi Pell",
+          "company": "Brindle Peak Labs"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 127,
+      "captioned": true
+    },
+    {
+      "id": "t-250a-s7",
+      "kind": "session",
+      "title": "We Cut Telemetry Spend 38% Without Losing the Incident",
+      "abstract": "A growing OpenTelemetry pipeline was dropping useful traces while our storage bill rose 70% in a year. We moved filtering to collectors, applied tail sampling by service and error status, and retained exemplars for high-cardinality metrics; spend fell 38%, and our next incident still had the trace that pinpointed a retry storm. Attendees will see the configuration and validation tests behind the change.",
+      "track": "Platform Engineering",
+      "level": "Advanced",
+      "tags": [
+        "opentelemetry",
+        "observability",
+        "telemetry-pipelines",
+        "cost-optimization"
+      ],
+      "speakers": [
+        {
+          "name": "Nell Ardent",
+          "company": "Bluekiln Works"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 346,
+      "captioned": false
+    },
+    {
+      "id": "t-250b-s7",
+      "kind": "session",
+      "title": "Meet the Deadline: Autoscaling Batch Inference",
+      "abstract": "Nightly document extraction had a fixed 200-pod pool that either idled or missed its 06:00 reporting deadline when queue volume spiked. We replaced it with KEDA-driven Kubernetes Jobs, queue-age scaling, and per-tenant concurrency caps; attendees will see the load-test curve, retry policy, and tradeoff between throughput and deadline safety.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "batch-inference",
+        "keda",
+        "autoscaling",
+        "kubernetes-jobs"
+      ],
+      "speakers": [
+        {
+          "name": "Tovan Mire",
+          "company": "Queuegrove"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 233,
+      "captioned": false
+    },
+    {
+      "id": "t-251-s7",
+      "kind": "session",
+      "title": "Multi-Cluster Failover That Doesn’t Wait for DNS",
+      "abstract": "Our two-region Kubernetes platform needed service failover in seconds, not after DNS caches expired. This session covers a Cilium Cluster Mesh design, the health signals that trigger route changes, and a failure-injection exercise that exposed stale endpoints and asymmetric paths; attendees will leave with a checklist for testing failover before relying on it.",
+      "track": "Networking & eBPF",
+      "level": "Intermediate",
+      "tags": [
+        "multi-cluster",
+        "cilium",
+        "routing",
+        "failover"
+      ],
+      "speakers": [
+        {
+          "name": "Sana Mirel",
+          "company": "Cloudharbor Works"
+        },
+        {
+          "name": "Bram Ellery",
+          "company": "Latticeforge"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 116,
+      "captioned": true
+    },
+    {
+      "id": "t-254-s7",
+      "kind": "session",
+      "title": "Debugging a Wasm Workload Without a Shell",
+      "abstract": "A production component kept returning an error that never appeared in its logs, and there was no container shell to inspect. We demonstrate a debugging workflow using structured host logs, wasm-tools, local reproduction, and a minimal test harness, then show how we narrowed the fault to an incorrect WASI interface assumption. You will learn what diagnostic data to capture before the next incident.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Beginner",
+      "tags": [
+        "debugging",
+        "wasi",
+        "tooling",
+        "incident-response"
+      ],
+      "speakers": [
+        {
+          "name": "Perrin Sol",
+          "company": "Mosslight Engineering"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 95,
+      "captioned": false
+    },
+    {
+      "id": "t-355a-s7",
+      "kind": "session",
+      "title": "GitOps Rollbacks That Actually Roll Back",
+      "abstract": "A faulty configuration reached every region because reverting a Git commit did not reverse an external schema change or clear a stale generated secret. We’ll show the safeguards our Argo CD workflow now uses, from dependency-aware promotion to rollback drills and post-sync checks, and share the metrics that helped us bring median recovery time down from 32 minutes to 8.",
+      "track": "Operations & Reliability",
+      "level": "Intermediate",
+      "tags": [
+        "gitops",
+        "argo-cd",
+        "deployment-safety",
+        "rollback"
+      ],
+      "speakers": [
+        {
+          "name": "Neri Sol",
+          "company": "Amber Kite Software"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 463,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s7",
+      "kind": "session",
+      "title": "Kafka Tiered Storage: Keeping 90 Days Without 90 Days of Disk",
+      "abstract": "Our event platform needed 90 days of retention, but keeping every segment on broker disks made capacity planning a monthly fire drill. We’ll share the rollout of Kafka tiered storage backed by an S3-compatible object store, the recovery and rebalance tests that caught gaps in our assumptions, and the metrics we use to keep fetch latency predictable.",
+      "track": "Storage & Data",
+      "level": "Intermediate",
+      "tags": [
+        "kafka",
+        "tiered-storage",
+        "object-storage",
+        "streaming"
+      ],
+      "speakers": [
+        {
+          "name": "Anik Daro",
+          "company": "Bluefern Relay"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 195,
+      "captioned": false
+    },
+    {
+      "id": "t-355c-s7",
+      "kind": "session",
+      "title": "Carbon Numbers You Can Defend in a Design Review",
+      "abstract": "Our first workload emissions dashboard looked precise until a sustainability review asked how we handled shared nodes, regional grid intensity, and missing power data. This talk presents the attribution method we now use with Kubernetes metrics and cloud-provider data, including uncertainty ranges, validation checks, and examples of decisions the numbers can—and cannot—support.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "carbon-accounting",
+        "observability",
+        "sustainability",
+        "kubernetes"
+      ],
+      "speakers": [
+        {
+          "name": "Evi Marr",
+          "company": "Bluefen Metrics"
+        },
+        {
+          "name": "Calder Wynn",
+          "company": "Bluefen Metrics"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 124,
+      "captioned": true
+    },
+    {
+      "id": "t-355d-s7",
+      "kind": "session",
+      "title": "What Broke When Our Controller Hit 12,000 Namespaces",
+      "abstract": "A controller that behaved well in staging developed a 90-second reconciliation backlog at 12,000 namespaces, with retries amplifying API-server load instead of clearing it. We’ll use real profiles and work-queue metrics to explain the bottlenecks, then cover the cache, concurrency, and backoff changes that brought p99 reconcile latency below eight seconds.",
+      "track": "Maintainer Track",
+      "level": "Advanced",
+      "tags": [
+        "kubernetes",
+        "controllers",
+        "performance",
+        "work-queues"
+      ],
+      "speakers": [
+        {
+          "name": "Dev Arlow",
+          "company": "Mossbridge Software"
+        },
+        {
+          "name": "Lina Keswick",
+          "company": "Mossbridge Software"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S7",
+      "start": "2026-11-11T23:15:00Z",
+      "end": "2026-11-11T23:45:00Z",
+      "interest": 88,
+      "captioned": false
+    },
+    {
+      "id": "t-150a-s8",
+      "kind": "session",
+      "title": "Let AI Draft the Manifest; Make Policy the Reviewer",
+      "abstract": "Developers at our company began asking coding assistants to generate Kubernetes manifests, including configurations with privileged containers and public services. We’ll share a pilot that paired generated drafts with schema checks, policy evaluation, and human-readable remediation, including the 27% of suggestions that needed correction and the guardrails we added before expanding access.",
+      "track": "Developer Experience",
+      "level": "Intermediate",
+      "tags": [
+        "ai-assisted-development",
+        "kubernetes",
+        "policy-as-code",
+        "developer-workflows"
+      ],
+      "speakers": [
+        {
+          "name": "Rilo Fenwick",
+          "company": "Cinder Vale Technologies"
+        },
+        {
+          "name": "Anka Pell",
+          "company": "Lattice Orchard"
+        }
+      ],
+      "roomId": "150A",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 133,
+      "captioned": false
+    },
+    {
+      "id": "t-151-s8",
+      "kind": "session",
+      "title": "Who Gets a Seat at the SIG Table?",
+      "abstract": "A small Kubernetes-adjacent project discovered that its governance meetings drew the same six maintainers even as its user base grew. We will describe a rotating chair model, published decision records, and a low-bandwidth participation path piloted over two release cycles, including the tradeoffs we saw in quorum, continuity, and volunteer workload.",
+      "track": "Community & Inclusion",
+      "level": "Advanced",
+      "tags": [
+        "governance",
+        "kubernetes",
+        "community",
+        "inclusive-design"
+      ],
+      "speakers": [
+        {
+          "name": "Maia Tern",
+          "company": "Fable Ridge Labs"
+        },
+        {
+          "name": "Corin Vale",
+          "company": "Fable Ridge Labs"
+        }
+      ],
+      "roomId": "151",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 114,
+      "captioned": false
+    },
+    {
+      "id": "t-155e-s8",
+      "kind": "session",
+      "title": "Admission Policies That Stay Strict—and Still Have an Escape Hatch",
+      "abstract": "At 60 clusters, policy exceptions had become handwritten YAML with no owner or expiry, and a rushed deny rule blocked emergency fixes twice. We show how we standardized Kubernetes ValidatingAdmissionPolicy with CEL, versioned exemptions, and pre-deployment tests, then measured enforcement coverage; attendees get a rollout template that keeps policy strict without making exceptions invisible.",
+      "track": "Security",
+      "level": "Intermediate",
+      "tags": [
+        "admission-control",
+        "cel",
+        "kubernetes",
+        "policy-as-code"
+      ],
+      "speakers": [
+        {
+          "name": "Rafi Sol",
+          "company": "Ashen Circuit Collective"
+        }
+      ],
+      "roomId": "155E",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 277,
+      "captioned": false
+    },
+    {
+      "id": "t-155f-s8",
+      "kind": "session",
+      "title": "Making Kubernetes Audit Logs Useful in an Incident",
+      "abstract": "An incident review showed that our Kubernetes audit pipeline captured every request but made useful answers painfully slow: finding one controller’s writes took 40 minutes. We’ll show how we filtered audit policy safely, shipped events with OpenTelemetry, and built queries that distinguish human actions from controller churn while preserving evidence needed for investigations.",
+      "track": "Observability",
+      "level": "Advanced",
+      "tags": [
+        "kubernetes",
+        "audit-logs",
+        "opentelemetry",
+        "incident-response"
+      ],
+      "speakers": [
+        {
+          "name": "Orin Vale",
+          "company": "Saffron Circuit"
+        }
+      ],
+      "roomId": "155F",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 158,
+      "captioned": true
+    },
+    {
+      "id": "t-250a-s8",
+      "kind": "session",
+      "title": "Rebuilding a Region Before the Cloud Provider Did",
+      "abstract": "When a storage control-plane fault made one region unavailable, our “disaster recovery” plan turned out to be a set of untested backup jobs. We built a quarterly restore game for Kubernetes state and application data, cut measured recovery time from 11 hours to 94 minutes, and found two backup gaps before they mattered; attendees will get the exercise design and recovery scorecard.",
+      "track": "Platform Engineering",
+      "level": "Intermediate",
+      "tags": [
+        "disaster-recovery",
+        "kubernetes",
+        "backup-and-restore",
+        "resilience"
+      ],
+      "speakers": [
+        {
+          "name": "Elias Quill",
+          "company": "Ternary Orchard"
+        }
+      ],
+      "roomId": "250A",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 327,
+      "captioned": false
+    },
+    {
+      "id": "t-250b-s8",
+      "kind": "session",
+      "title": "The 1,200-Case Gate Before a Model Ships",
+      "abstract": "A team reviewed models with one aggregate score and shipped a classifier that failed badly on a low-volume language slice. We built a versioned evaluation gate around 1,200 golden cases, per-slice precision and recall, and bootstrap confidence intervals. The talk shows how to run it as a Kubernetes job from CI and produce a decision report without requiring a production traffic shift.",
+      "track": "AI & ML on Kubernetes",
+      "level": "Intermediate",
+      "tags": [
+        "model-evaluation",
+        "ci-cd",
+        "kubernetes-jobs",
+        "testing"
+      ],
+      "speakers": [
+        {
+          "name": "Sera Pell",
+          "company": "Mosslight Systems"
+        },
+        {
+          "name": "Dax Orin",
+          "company": "Mosslight Systems"
+        }
+      ],
+      "roomId": "250B",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 244,
+      "captioned": true
+    },
+    {
+      "id": "t-251-s8",
+      "kind": "session",
+      "title": "Taking eBPF to the NIC: What Offload Changed for Us",
+      "abstract": "Moving a packet filter from host execution to NIC offload reduced CPU use in our lab, but driver support and verifier limits made the first production attempt uneven. We’ll compare host and hardware execution, describe our compatibility test matrix across three NIC models, and share the rollout and fallback checks we use to keep offload from becoming a debugging trap.",
+      "track": "Networking & eBPF",
+      "level": "Advanced",
+      "tags": [
+        "ebpf-offload",
+        "xdp",
+        "nic",
+        "operations"
+      ],
+      "speakers": [
+        {
+          "name": "Kei Danvers",
+          "company": "Ternary Harbor"
+        }
+      ],
+      "roomId": "251",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 138,
+      "captioned": false
+    },
+    {
+      "id": "t-254-s8",
+      "kind": "session",
+      "title": "When Does Wasm Beat a Container? A Cost Model from Production",
+      "abstract": "We compared Wasm and container workloads across 12 services, tracking memory per replica, startup time, throughput, and engineering effort rather than relying on a single benchmark. Wasm reduced memory use for some short-lived workers but offered little advantage for several network-bound services. We share our test design, cost worksheet, and the thresholds we now use before recommending a runtime change.",
+      "track": "WebAssembly & Runtimes",
+      "level": "Intermediate",
+      "tags": [
+        "benchmarking",
+        "cost-optimization",
+        "performance",
+        "runtimes"
+      ],
+      "speakers": [
+        {
+          "name": "Dara Fen",
+          "company": "Cloudbarrow Analytics"
+        },
+        {
+          "name": "Tomas Elt",
+          "company": "Pine Current Systems"
+        }
+      ],
+      "roomId": "254",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 120,
+      "captioned": true
+    },
+    {
+      "id": "t-355a-s8",
+      "kind": "session",
+      "title": "Failover Is a Product Feature: Testing the Region You Ignore",
+      "abstract": "Our first regional failover exercise moved traffic successfully but overloaded a shared identity service that had never been included in the capacity plan. This talk details the quarterly drills we built around DNS, data freshness, and dependency limits, including the 23-minute recovery target we now verify and the evidence we collect before calling a failover successful.",
+      "track": "Operations & Reliability",
+      "level": "Advanced",
+      "tags": [
+        "multi-region",
+        "disaster-recovery",
+        "chaos-engineering",
+        "service-reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Edda Quill",
+          "company": "Morrowglass Networks"
+        },
+        {
+          "name": "Tomas Venn",
+          "company": "Keelstone Forge"
+        }
+      ],
+      "roomId": "355A",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 418,
+      "captioned": false
+    },
+    {
+      "id": "t-355b-s8",
+      "kind": "session",
+      "title": "The Inode Incident: Debugging Full Volumes That Still Had Space",
+      "abstract": "A batch platform started failing writes with 40% of its PVC capacity still free, because millions of tiny files had exhausted available inodes. We’ll walk through how we traced the failures from application logs to filesystem metrics, compare ext4 and XFS behavior in our workload, and share practical alerts and cleanup controls for preventing a repeat.",
+      "track": "Storage & Data",
+      "level": "Beginner",
+      "tags": [
+        "filesystems",
+        "observability",
+        "persistent-volumes",
+        "troubleshooting"
+      ],
+      "speakers": [
+        {
+          "name": "Dara Quill",
+          "company": "Fablewick Compute"
+        }
+      ],
+      "roomId": "355B",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 138,
+      "captioned": true
+    },
+    {
+      "id": "t-355c-s8",
+      "kind": "session",
+      "title": "From x86 to Arm: A Cost-per-Request Migration",
+      "abstract": "We moved 60 stateless services to Arm nodes and measured a 17% reduction in compute spend and a 21% drop in energy per request, but the first rollout exposed image, dependency, and performance-test gaps. We’ll share our compatibility inventory, mixed-architecture scheduling approach, and the per-service acceptance criteria we used to keep the migration reversible.",
+      "track": "Cost & Sustainability",
+      "level": "Intermediate",
+      "tags": [
+        "arm",
+        "kubernetes",
+        "cost-optimization",
+        "energy-efficiency"
+      ],
+      "speakers": [
+        {
+          "name": "Tavi Renn",
+          "company": "Morrowglass Cloud"
+        }
+      ],
+      "roomId": "355C",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 93,
+      "captioned": false
+    },
+    {
+      "id": "t-355d-s8",
+      "kind": "session",
+      "title": "Draining Nodes Without Surprising Your Users",
+      "abstract": "During a fleet refresh, our maintenance automation evicted 700 pods in parallel and triggered cascading retries in workloads that had valid disruption budgets. We’ll detail how we coordinated drains with rollout controllers, validated disruption budgets before acting, and introduced rate limits and stop conditions that kept a 3,000-node upgrade inside its maintenance window.",
+      "track": "Maintainer Track",
+      "level": "Intermediate",
+      "tags": [
+        "kubernetes",
+        "node-maintenance",
+        "pod-disruption",
+        "reliability"
+      ],
+      "speakers": [
+        {
+          "name": "Edda Morin",
+          "company": "Stonepath Cloud"
+        }
+      ],
+      "roomId": "355D",
+      "slot": "S8",
+      "start": "2026-11-12T00:00:00Z",
+      "end": "2026-11-12T00:30:00Z",
+      "interest": 89,
+      "captioned": false
+    }
+  ]
+}

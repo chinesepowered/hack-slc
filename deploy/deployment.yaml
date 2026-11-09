@@ -45,7 +45,15 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: ES_URL
+              value: "http://es:9200"
             # Created out of band (never committed): see README, "Secrets".
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: capykube-secrets
+                  key: ELASTIC_PASSWORD
+                  optional: true
             - name: DASH0_AUTH_TOKEN
               valueFrom:
                 secretKeyRef:
