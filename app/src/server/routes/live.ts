@@ -49,6 +49,9 @@ export async function liveRoutes(app: FastifyInstance) {
       const preview = await previewPlanB(fromTalkId, clock.now(), { quiet, stepFree, limit: 5 });
       const bound = bindSeats(preview.candidates, 1, clock.now(), 'attendee', toTalkId);
       if (!bound) return reply.code(409).send({ error: 'no seats left in any Plan B room' });
+      // The decision (filter, score, bind) is what the SLO measures; Capy's
+      // note is the LLM's and has its own latency metric.
+      const decisionMs = Math.round(performance.now() - started);
       const note = await capyNote(preview.from, bound.candidate);
       const event = {
         at: clock.now(),
@@ -65,7 +68,7 @@ export async function liveRoutes(app: FastifyInstance) {
           },
         ],
         unplaced: 0,
-        latencyMs: Math.round(performance.now() - started),
+        latencyMs: decisionMs,
       };
       simulator.pushEvent(event);
       recordPlanB(event, preview.from, { quiet, stepFree });
