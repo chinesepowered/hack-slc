@@ -11,9 +11,9 @@ import { useTalks } from '../lib/talks';
 import { formatVenueDay, formatVenueRange, formatVenueTime, relativeStart } from '../../shared/time';
 import { ROOM_BY_ID } from '../../shared/venue';
 import type { SearchResponse, Talk } from '../../shared/api-types';
+import { SEARCH_SUGGESTIONS as SUGGESTIONS } from '../../shared/suggestions';
 import type { PlanBHoldResponse, PlanBPreview, RoomStatus } from '../../shared/live-types';
 
-const SUGGESTIONS = ['something on eBPF and security', 'platform engineering for beginners', 'keeping GPUs busy', 'make on-call less painful'];
 
 type Tab = 'search' | 'now' | 'agenda';
 

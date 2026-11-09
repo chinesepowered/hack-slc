@@ -42,3 +42,8 @@ export const llmNoteDuration = meter.createHistogram('capykube.capy_note.duratio
   description: "Time to write Capy's note for a Plan B, including the model call",
   unit: 'ms',
 });
+
+export const embeddingCache = meter.createCounter('capykube.search.embedding_lookups', {
+  description: 'Where each query embedding came from: memory, the Elasticsearch cache, OpenAI, or the deadline (keyword fallback)',
+  unit: '{lookup}',
+});

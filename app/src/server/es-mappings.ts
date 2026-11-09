@@ -7,6 +7,7 @@ export const INDEX = {
   rooms: 'capykube-rooms',
   roomStatus: 'capykube-room-status',
   planb: 'capykube-planb-events',
+  queryEmbeddings: 'capykube-query-embeddings',
 } as const;
 
 export const EMBEDDING_DIMS = 512;
@@ -98,7 +99,20 @@ const planb: estypes.MappingTypeMapping = {
   },
 };
 
+// Search-query embeddings, cached so a restart doesn't pay OpenAI again.
+// Plain floats, not dense_vector: Elasticsearch 9 leaves dense_vector values
+// out of _source, and the cache is read by id, never searched.
+const queryEmbeddings: estypes.MappingTypeMapping = {
+  dynamic: 'strict',
+  properties: {
+    query: { type: 'keyword' },
+    model: { type: 'keyword' },
+    vector: { type: 'float', index: false, doc_values: false },
+  },
+};
+
 export const MAPPINGS: Record<(typeof INDEX)[keyof typeof INDEX], estypes.MappingTypeMapping> = {
+  [INDEX.queryEmbeddings]: queryEmbeddings,
   [INDEX.talks]: talks,
   [INDEX.rooms]: rooms,
   [INDEX.roomStatus]: roomStatus,
