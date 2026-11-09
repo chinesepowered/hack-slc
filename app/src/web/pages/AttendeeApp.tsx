@@ -88,9 +88,13 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Ignore answers to superseded requests when the toggles change quickly.
     let stale = false;
     setPreview(null);
-    api.planB(talk.id, { quiet, stepFree }).then((p) => !stale && setPreview(p), (e) => !stale && setError(String(e)));
+    api.planB(talk.id, { quiet, stepFree }).then(
+      (p) => !stale && setPreview(p),
+      (e) => !stale && setError(String(e)),
+    );
     return () => {
       stale = true;
     };
@@ -102,6 +106,7 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
     setError(null);
     try {
       const res = await api.holdSeat(talk.id, toTalkId, { quiet, stepFree });
+      // The server may bind a different room if the chosen one just filled.
       const chosen = preview?.candidates.find((c) => c.talk.id === res.hold.talkId)?.talk ?? (await api.talk(res.hold.talkId));
       setHold({ ...res, talk: chosen });
       onSaved(chosen);
