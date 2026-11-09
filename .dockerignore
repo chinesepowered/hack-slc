@@ -1,0 +1,6 @@
+.git
+**/node_modules
+app/dist
+app/coverage
+**/.env*
+media
