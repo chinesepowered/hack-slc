@@ -1,52 +1,107 @@
-# CapyKube 🦫🍊
+<p align="center">
+  <img src="docs/media/capy.png" width="160" alt="Capy, CapyKube's capybara, soaking in a hot spring with a yuzu on its head" />
+</p>
 
-**A kube-scheduler for humans.** When the talk you wanted is full, Capy finds
-you the closest talk by topic that has seats, starts soon and is a short walk
-away, and holds you a seat on the way there.
+<h1 align="center">CapyKube</h1>
 
-Popular rooms at KubeCon fill up 15 to 30 minutes early and turn people away,
-while similar talks down the hall have empty seats. CapyKube treats the
-venue like a cluster: **rooms are nodes with capacity, attendees are pods**.
-When a room fills, it reschedules people the way Kubernetes reschedules pods:
+<p align="center">
+  <b>A kube-scheduler for humans.</b><br />
+  When the talk you came for is full, Capy finds you the closest talk that still has seats, and holds you one.
+</p>
 
-1. **Filter**: talks starting within minutes, in rooms with open seats
-   (step-free only, if you ask).
-2. **Score**: closest in topic (embeddings), shortest walk, emptiest room,
-   starts soonest.
-3. **Bind**: hold the seat, re-checked synchronously, so Capy never sends 200
-   people to a room with 30 seats.
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=9PdHfhU55Dk"><b>▶ Watch the 2-minute demo</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://capykube2.cnh.radarhq.io/live"><b>Live board</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://capykube2.cnh.radarhq.io"><b>Attendee app</b></a>
+</p>
 
-Filter and Score are **one Elasticsearch query**.
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=9PdHfhU55Dk"><img src="docs/media/video-poster.png" width="820" alt="Watch the two-minute demo on YouTube" /></a>
+</p>
 
 Built at the [Cloud Native Hackathon](https://www.wemakedevs.org/hackathons/cnh),
-Salt Lake City, November 9, 2026, by team **capykube2**.
-Live: **https://capykube2.cnh.radarhq.io** · big screen at
-[`/live`](https://capykube2.cnh.radarhq.io/live).
+Salt Lake City, November 9, 2026, by team **capykube2**, for the
+Elasticsearch, Dash0, Radar and Gitar tracks.
 
-[![Watch the two-minute demo: Capy in the hot spring, with the title CapyKube, a kube-scheduler for humans](docs/media/video-poster.png)](docs/media/capykube-demo.mp4)
+## The problem
 
-**[Watch the two-minute demo](docs/media/capykube-demo.mp4)** (narrated, with captions).
+Popular conference rooms fill up early and turn people away, while similar
+talks down the hall have empty seats. You find out at the door, and by the
+time you have picked something else, that room is full too. The organizers
+never learn how many people they turned away, or what those people wanted to
+hear.
+
+## The idea
+
+Treat the venue like a cluster: **rooms are nodes, attendees are pods**. When
+a room fills, reschedule the overflow the way Kubernetes reschedules pods.
+
+| Phase | What Capy does |
+| --- | --- |
+| **Filter** | Keeps the talks starting in the next few minutes, in rooms with open seats (step-free only, if you ask). |
+| **Score** | Ranks them: closest in topic, shortest walk, most free seats, starts soonest. |
+| **Bind** | Holds your seat while you walk, so Capy never sends 200 people to a room with 30 seats. |
+
+Filter and Score are **one Elasticsearch query** that takes about 10 ms.
 
 ![The live board: capybaras walking to talks, a full room turning red, and Capy rescheduling the overflow](docs/media/live.png)
 
-## What you can do
+## Try it in a minute
+
+1. **Open the [live board](https://capykube2.cnh.radarhq.io/live).** It
+   replays the rush into the 2:00 PM talks about every 100 seconds: Room
+   155 E fills up, turns red, and Capy reschedules 500 people. Click **Show
+   the Elasticsearch query** under the map to see the scheduler's one query.
+2. **Open the [attendee app](https://capykube2.cnh.radarhq.io) on your
+   phone** and tap "something on eBPF and security". When the first result
+   says *Full* (from 1:55 PM on the demo clock), tap **Room full · find my
+   Plan B**, then **Hold my seat**.
+3. **Tick "Ask in any language"** and search in Japanese or Spanish, for
+   example `コンテナのセキュリティ`.
+4. **Look at the [sign](https://capykube2.cnh.radarhq.io/sign/155E)** that
+   goes on a full room's door. Its QR code opens that room's Plan B, so there
+   is nothing to install.
+
+![The attendee app: search results with a full room, Capy's Plan B with its scores, and a held seat with Capy's note](docs/media/phone-flow.png)
+
+The crowd is **simulated** (300 capybaras, ten people each) and the schedule
+is a **fictional KubeCon day**: every speaker and company is made up. At a
+real event the room counts would come from door staff, badge scans or door
+counters.
+
+## Where each sponsor's technology is
+
+| Track | What we did with it | Where to look |
+| --- | --- | --- |
+| **Elasticsearch** | The data layer for everything. Hybrid search (BM25 and kNN, fused by RRF). The scheduler as one `script_score` query. ES\|QL for organizer insights. Multilingual search on Elastic Cloud Serverless with Jina embeddings and a reranker. | [search.ts](app/src/server/search.ts), [scheduler.ts](app/src/server/scheduler.ts), [insights.ts](app/src/server/insights.ts), [es-cloud.ts](app/src/server/es-cloud.ts) |
+| **Dash0** | OpenTelemetry traces, metrics, logs and browser RUM from the first commit. Dashboard and SLO as code. Capy's mood *is* the SLO. Agent0 found our slowest call, and the fix took search from up to 857 ms to about 20 ms. | [telemetry.ts](app/src/server/telemetry.ts), [observability/dash0/](observability/dash0), [docs/dash0.md](docs/dash0.md) |
+| **Radar** | Runs on our team cluster through Argo CD. Our coding agent did every cluster operation through Radar's MCP server. Radar showed why the first rollout was stuck, and its Checks went from five findings to two. | [docs/radar.md](docs/radar.md), [deploy/](deploy), [argocd/](argocd) |
+| **Gitar** | Every change landed through a pull request that Gitar reviewed against our own instructions and rules, with auto-apply on. It raised 12 findings on the first six pull requests, and all 12 were fixed before merge. | [.gitar/](.gitar), [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged) |
+
+## Who uses it
 
 | Who | Where | What |
 | --- | --- | --- |
-| Attendees | `/` | Search talks by meaning ("something on eBPF and security"), or in any language. Save an agenda. When a room is full: **find my Plan B**, with quiet mode and step-free routes, see why Capy picked it, and hold a seat. |
-| Anyone at a full door | the QR code on the sign | `/full/<room>` opens that room's Plan B. No app to install, right when you need it. |
-| Door staff | `/door/<room>` | One tap closes a room, even while seats show free. Everyone heading there gets rerouted. |
-| Organizers | `/live` | The venue as a cluster: rooms filling, hundreds of capybaras walking, Plan B arcs, the scheduler log, and **demand turned away by track**, which nobody could count before. |
+| Attendees | `/` | Search talks by meaning, or in any language. Save an agenda. When a room is full: **find my Plan B**, see why Capy picked it, and hold a seat. |
+| Anyone at a full door | the QR code on the sign | `/full/<room>` opens that room's Plan B, right when you need it. |
+| Door staff | `/door/<room>` | One tap closes a room, even while seats show free. Everyone heading there is rerouted. |
+| Organizers | `/live` | The venue as a cluster: rooms filling, the scheduler log, and **people turned away by track**, which nobody could count before. |
 | Printers | `/sign/<room>` | The "This room is full" sign with its QR code. |
 
-The live demo **replays the minutes around 2:00 PM on a loop**: every
-minute and a half or so, Room 155 E fills up and Capy reschedules the
-overflow.
+### Built for everyone in the hallway
 
-The crowd on the live board is **simulated** (300 capybaras, ten people each)
-and the schedule is a **fictional KubeCon day**: every speaker and company is
-made up. At a real event the room counts would come from door staff, badge
-scans or door counters.
+- **Quiet mode** weighs free seats more heavily, so Plan B prefers calmer
+  rooms. The Hot Spring quiet room is always open.
+- **Step-free routes** leave out rooms you can only reach by stairs.
+- **Any language**: ask in your own language and get the right talk.
+- **Nothing to install**: a QR code on the door is the way in.
+- **Readable by everyone**: our rules require an accessible name on every
+  control, text as well as color (a full room says "Full"), visible focus,
+  and no motion under `prefers-reduced-motion`. They live in
+  [docs/conventions.md](docs/conventions.md), and Gitar reviews every pull
+  request against them.
 
 ## How it's built
 
@@ -76,55 +131,61 @@ flowchart LR
 ### Elasticsearch: the data layer
 
 - **Talks, rooms, live room status and every Plan B request** live in
-  Elasticsearch. The app bootstraps indices with strict mappings and a trial
-  license on start (`app/src/server/es.ts`).
-- **Hybrid search**: BM25 over title, tags and abstract fused with kNN over
+  Elasticsearch. The app creates its indices with strict mappings on start
+  (`app/src/server/es.ts`).
+- **Hybrid search**: BM25 over title, tags and abstract, fused with kNN over
   512-dimension embeddings by the **`rrf` retriever** (`search.ts`).
   "something on eBPF and security" finds talks that say neither word in the
   title.
 - **The scheduler is one query** (`scheduler.ts`): a `script_score` whose
-  filter is the Filter phase and whose Painless script computes TopicAffinity
-  (`cosineSimilarity` over the talk embeddings), WalkTime, SeatsFit and
-  StartSoon. The board's "under the hood" panel shows the query and each
-  candidate's scores.
-- **ES|QL** turns the Plan B events into organizer insights: people turned
-  away by track and by talk (`insights.ts`).
+  filter is the Filter phase and whose Painless script computes topic
+  similarity (`cosineSimilarity` over the talk embeddings), walking time,
+  free seats and start time.
+- **ES|QL** turns Plan B events into organizer insights: people turned away
+  by track and by talk (`insights.ts`).
 - **Elastic Cloud Serverless** adds multilingual search: a `semantic_text`
   field embeds every talk with **jina-embeddings-v5** at ingest, and
-  **jina-reranker-v3.5** reorders the fused results through the
-  `text_similarity_reranker` retriever (`es-cloud.ts`). Ask in Spanish or
-  Japanese and you get the English talk.
-- In the cluster, Elasticsearch runs as a single-node StatefulSet sized for
-  the team budget, with mmap off because the host refuses the privileged
-  sysctl init container (`deploy/elasticsearch.yaml`).
+  **jina-reranker-v3.5** reorders the fused results (`es-cloud.ts`).
+- In the cluster, Elasticsearch is a single-node StatefulSet sized for the
+  team's budget (`deploy/elasticsearch.yaml`).
+
+The live board shows the scheduler's request as it runs:
+
+![The live board with the scheduler's Elasticsearch request open: the bool filter and the Painless script_score](docs/media/query.png)
 
 ### Dash0: OpenTelemetry from the first commit
 
 - **Traces** for every request: Fastify, outgoing HTTP, the Elasticsearch
-  client's native spans, and **OpenAI calls with the GenAI semantic
-  conventions** (model, tokens, latency) (`telemetry.ts`).
-- **Metrics** that are the product: room occupancy and utilization gauges,
-  people walking or waiting, Plan B requests, **people turned away by
-  track**, Plan B latency, and Capy's note latency (`metrics.ts`,
+  client's own spans, and **OpenAI calls with the GenAI semantic
+  conventions** (`telemetry.ts`).
+- **Metrics that are the product**: room occupancy, people walking or
+  waiting, **people turned away by track**, Plan B latency (`metrics.ts`,
   `gauges.ts`).
 - **Logs** through pino, correlated with traces.
-- **Real-user monitoring** with the Dash0 web SDK, sent through a `/rum`
-  proxy so no token ships to the browser. Same-origin calls carry trace
-  context, so a tap on the phone and the Elasticsearch query it causes share
-  one trace.
-- **Dashboard and SLO as code** (`observability/dash0/`, applied with
-  `scripts/dash0-apply.sh`): "99% of Plan B decisions under 500 ms".
-- **Capy's mood is the SLO.** The app reads the SLO from Dash0's PromQL API:
-  Capy chills in the hot spring with a yuzu while it's green and sweats when
-  the error budget burns (`dash0-slo.ts`).
+- **Browser RUM** with the Dash0 web SDK, sent through a `/rum` proxy so no
+  token ships to the browser. A tap on the phone and the Elasticsearch query
+  it causes share one trace.
+- **Dashboard and SLO as code** (`observability/dash0/`): "99% of Plan B
+  decisions under 500 ms".
+- **Capy's mood is the SLO.** The app reads it from Dash0's PromQL API: Capy
+  soaks in the hot spring while it is green and sweats when the error budget
+  burns (`dash0-slo.ts`).
+- **Agent0 found the slow call.** Asked over Dash0's MCP server, it showed
+  that one OpenAI embedding call was 92% of search latency. We cached query
+  embeddings in Elasticsearch. The whole story is in
+  [docs/dash0.md](docs/dash0.md).
+
+![A real seat-hold trace, the SLO, room occupancy and Agent0's finding, drawn from our Dash0 data](docs/media/dash0.png)
+
+*Drawn from our own Dash0 data for the demo video: the spans, the SLO value and the occupancy series are real.*
 
 ### Radar: running it on Kubernetes
 
-- Deployed to the team's vcluster from Radar's starter: every merge builds
-  an image and **Argo CD syncs it**. Our coding agent drives the cluster
-  through **Radar's MCP server**: it created the Secret and the Argo CD
-  Application, syncs each deploy commit, waits for each rollout and reads
-  the Checks. Nobody ran `kubectl`.
+- Deployed to the team's cluster from Radar's starter. Every merge builds an
+  image and **Argo CD syncs it**.
+- Our coding agent drove the cluster through **Radar's MCP server**: it
+  created the Secret and the Argo CD Application, synced each deploy, waited
+  for each rollout and read the Checks. Nobody ran `kubectl`.
 - **Radar found why the first rollout was stuck.** `wait_for` came back
   `blocked` with the pod's `ImagePullBackOff` and the registry's refusal:
   the image had been published while the repository was private. Fixed in
@@ -134,38 +195,47 @@ flowchart LR
   [#9](https://github.com/chinesepowered/hack-slc/pull/9), two left with
   their reasons. The whole story is in [docs/radar.md](docs/radar.md).
 
-### Gitar: every change through a reviewed PR
+![The cluster's workloads and Argo CD state, and the agent's calls to Radar's MCP server, including the blocked rollout](docs/media/radar.png)
 
-- Every change landed as a pull request that Gitar reviewed, from
-  [#1](https://github.com/chinesepowered/hack-slc/pull/1) to the last one:
-  see the [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged).
+*Drawn from live cluster state for the demo video: the workloads, the Argo CD revision and the error text are what Radar returned.*
+
+### Gitar: every change through a reviewed pull request
+
+- Every change landed as a pull request that Gitar reviewed: see the
+  [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged).
 - **Project-aware review**: `.gitar/review/capykube.md` builds on
-  [docs/conventions.md](docs/conventions.md) (seat accounting, venue time
-  zones, Elasticsearch safety, telemetry gaps, accessibility, cluster
-  budget, secrets).
-- **Repository rules**: `.gitar/rules/api-contract.md` checks the web client
-  still matches the server whenever the API changes;
-  `.gitar/rules/k8s-budget.md` totals requests and limits against the team
+  [docs/conventions.md](docs/conventions.md): seat accounting, venue time
+  zones, Elasticsearch safety, telemetry, accessibility, cluster budget and
+  secrets.
+- **Repository rules**: `.gitar/rules/api-contract.md` checks that the web
+  client still matches the server whenever the API changes, and
+  `.gitar/rules/k8s-budget.md` totals requests and limits against the team's
   budget whenever `deploy/` changes.
-- **Auto-apply** with criteria in `.gitar/config/apply.md`. What Gitar
-  caught and fixed on its own includes a Dockerfile that would have broken
-  every deploy (#1), an unbounded search size and a NaN page size (#2), a
-  door-control endpoint anyone could abuse (#3), and two Plan B UI races
-  (#4).
+- **Auto-apply** with criteria in `.gitar/config/apply.md`. Gitar's 12
+  findings include a Dockerfile that would have broken every deploy
+  ([#1](https://github.com/chinesepowered/hack-slc/pull/1)), an unbounded
+  search size ([#2](https://github.com/chinesepowered/hack-slc/pull/2)), a
+  door-control endpoint anyone could call
+  ([#3](https://github.com/chinesepowered/hack-slc/pull/3)) and a seat held
+  without the attendee seeing it
+  ([#4](https://github.com/chinesepowered/hack-slc/pull/4)).
+
+![Gitar's review on pull request 1: the Dockerfile copies a folder that does not exist, with the fix it applied](docs/media/gitar-review.png)
 
 ## Would this get used at a real KubeCon?
 
 The problem is real: attendee write-ups from 2017 to 2024 describe popular
 KubeCon rooms filling 15 to 30 minutes early and turning people away, even
 after rooms got bigger. Some event apps show room occupancy, and badge
-scanning lets staff redirect people by hand. CapyKube adds the part that's
+scanning lets staff redirect people by hand. CapyKube adds the part that is
 missing: an automatic, topic-matched Plan B that spreads people out instead
-of creating the next full room, with no new hardware and no app to install:
+of creating the next full room, with no new hardware and no app to install.
 
 - **The signal** is the staff who already close the doors: one tap.
 - **The entry point** is a QR code on the "Room full" sign.
 - **The payoff for organizers**: every Plan B request counts someone turned
-  away, by topic. That's the data for sizing rooms and picking talks next year.
+  away, by topic. That is the data for sizing rooms and picking talks next
+  year.
 
 The realistic path is open source, a pilot at a Kubernetes Community Day,
 then an integration with an event platform.
@@ -212,6 +282,8 @@ hackathon rules allow and require us to disclose. The team chose the idea,
 made the product and architecture decisions, reviewed the pull requests and
 operated the app. Gitar, an AI code reviewer, reviewed every pull request.
 The demo schedule's talk abstracts were partly drafted with an OpenAI model.
+The demo video's narration is an ElevenLabs voice, and its music was
+generated with ElevenLabs.
 
 ## License
 

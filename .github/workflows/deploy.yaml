@@ -8,6 +8,8 @@ on:
     paths-ignore:
       - deploy/kustomization.yaml
       - "**.md"
+      # Documentation and its images are not part of the image.
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
