@@ -68,7 +68,7 @@ Elasticsearch, Dash0, Radar and Gitar tracks.
 ## Try it in a minute
 
 1. **Open the [live board](https://capykube2.cnh.radarhq.io/live).** It
-   replays the rush into the 2:00 PM talks about every 100 seconds: Room
+   replays the rush into the 2:00 PM talks about every 80 seconds: Room
    155 E fills up, turns red, and Capy reschedules 500 people. Click **Show
    the Elasticsearch query** under the map to see the scheduler's one query.
 2. **Open the [attendee app](https://capykube2.cnh.radarhq.io) on your
@@ -290,7 +290,7 @@ Open http://localhost:8080 and `/live`. Optional environment:
 | `ES_CLOUD_URL`, `ES_CLOUD_API_KEY` | Multilingual search on Elastic Cloud Serverless |
 | `OPS_KEY` | Requires `x-ops-key` for the demo clock and door controls |
 | `SIM_SPEED`, `SIM_AGENTS` | Demo clock speed (default 20×) and crowd size (default 300) |
-| `SIM_LOOP_START`, `SIM_LOOP_END` | Replay a window of the day (ISO times). The deployed demo loops over 1:42 to 2:14 PM, the rush into the 2:00 PM talks |
+| `SIM_LOOP_START`, `SIM_LOOP_END` | Replay a window of the day (ISO times). The deployed demo loops over 1:42 to 2:09 PM, the rush into the 2:00 PM talks |
 
 Tests: `pnpm test` (unit), `pnpm test:integration` (needs `ES_URL`).
 
