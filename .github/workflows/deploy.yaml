@@ -54,6 +54,30 @@ jobs:
             ${{ steps.meta.outputs.image }}:latest
           labels: org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
 
+      - name: Check the cluster can pull the image
+        env:
+          IMAGE: ${{ steps.meta.outputs.image }}
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          # The cluster pulls without credentials. A private package would leave
+          # the rollout in ImagePullBackOff, so stop here, before the deploy
+          # commit, and the cluster keeps running the last good image.
+          repo="${IMAGE#ghcr.io/}"
+          token=$(curl -s "https://ghcr.io/token?service=ghcr.io&scope=repository:${repo}:pull" | jq -r '.token // empty')
+          if [ -z "$token" ]; then
+            code="no anonymous token"
+          else
+            code=$(curl -s -o /dev/null -w '%{http_code}' \
+              -H "Authorization: Bearer ${token}" \
+              -H 'Accept: application/vnd.oci.image.index.v1+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.docker.distribution.manifest.v2+json' \
+              "https://ghcr.io/v2/${repo}/manifests/${TAG}")
+          fi
+          if [ "$code" != "200" ]; then
+            echo "::error::${IMAGE}:${TAG} can't be pulled without credentials (${code}). Make the package public, then re-run this workflow."
+            exit 1
+          fi
+          echo "${IMAGE}:${TAG} can be pulled without credentials."
+
       - name: Point the manifests at the new image
         env:
           IMAGE: ${{ steps.meta.outputs.image }}
