@@ -267,6 +267,11 @@ of creating the next full room, with no new hardware and no app to install.
 - **The payoff for organizers**: every Plan B request counts someone turned
   away, by topic. That is the data for sizing rooms and picking talks next
   year.
+- **Next: counts that keep themselves.** Door staff are the signal today
+  because that needs no hardware. A badge tap or scan at the door (NFC, or
+  the QR code already on the badge) or a door counter would feed the same
+  per-room counts with nobody typing, and the scheduler would read them the
+  way it reads them now. That part is not built.
 
 The realistic path is open source, a pilot at a Kubernetes Community Day,
 then an integration with an event platform.
