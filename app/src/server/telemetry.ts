@@ -49,10 +49,17 @@ if (token && process.env.OTEL_SDK_DISABLED !== 'true') {
         '@opentelemetry/instrumentation-fs': { enabled: false },
         '@opentelemetry/instrumentation-dns': { enabled: false },
         '@opentelemetry/instrumentation-net': { enabled: false },
+        // Forwarding browser telemetry to Dash0 shouldn't create telemetry of its own.
+        '@opentelemetry/instrumentation-undici': {
+          ignoreRequestHook: (req) => req.origin.includes('dash0.com'),
+        },
         '@opentelemetry/instrumentation-http': {
           // Probes are noise, and the event stream is one request that lasts for hours.
           ignoreIncomingRequestHook: (req) =>
-            req.url === '/healthz' || req.url === '/readyz' || (req.url ?? '').startsWith('/api/live/stream'),
+            req.url === '/healthz' ||
+            req.url === '/readyz' ||
+            (req.url ?? '').startsWith('/api/live/stream') ||
+            (req.url ?? '').startsWith('/rum/'),
         },
       }),
       new FastifyOtelInstrumentation({ registerOnInitialization: true }),

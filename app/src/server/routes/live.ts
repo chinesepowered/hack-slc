@@ -6,8 +6,9 @@ import { hub } from '../live';
 import { bindSeats, previewPlanB, recordPlanB } from '../scheduler';
 import { capyNote } from '../capy-note';
 import { insights } from '../insights';
+import { localMood } from '../capy-mood';
 import { ROOM_BY_ID } from '../../shared/venue';
-import type { Insights, LiveSnapshot, PlanBHoldResponse, PlanBPreview } from '../../shared/live-types';
+import type { CapyMoodResponse, Insights, LiveSnapshot, PlanBHoldResponse, PlanBPreview } from '../../shared/live-types';
 
 const bool = (v: unknown) => v === true || v === 'true' || v === '1';
 
@@ -102,4 +103,6 @@ export async function liveRoutes(app: FastifyInstance) {
   });
 
   app.get('/api/insights', async (): Promise<Insights> => insights());
+
+  app.get('/api/capy', async (): Promise<CapyMoodResponse> => localMood());
 }

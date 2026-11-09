@@ -6,6 +6,7 @@ import { log } from './log';
 import { bootstrap, isReady } from './es';
 import { talkRoutes } from './routes/talks';
 import { liveRoutes } from './routes/live';
+import { rumRoutes } from './routes/rum';
 import { simulator } from './simulator';
 import { registerGauges } from './gauges';
 
@@ -24,6 +25,7 @@ async function main() {
 
   await app.register(talkRoutes);
   await app.register(liveRoutes);
+  await app.register(rumRoutes);
 
   await app.register(fastifyStatic, {
     root: path.resolve(config.webDir),

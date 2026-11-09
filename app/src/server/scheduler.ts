@@ -15,6 +15,7 @@ import { loadData } from './data';
 import { venue } from './venue-state';
 import { planbDuration, planbPeople, planbRequests, planbUnplaced } from './metrics';
 import { log } from './log';
+import { observePlanB } from './capy-mood';
 import { ROOM_BY_ID, walkMinutes } from '../shared/venue';
 import {
   DEFAULT_WEIGHTS,
@@ -232,6 +233,7 @@ export function recordPlanB(event: PlanBEvent, from: Talk, extra: { quiet: boole
   const attrs = { source: event.source, quiet: extra.quiet, step_free: extra.stepFree };
   planbRequests.add(1, attrs);
   planbDuration.record(event.latencyMs, { source: event.source });
+  observePlanB(event.latencyMs, event.unplaced);
   planbPeople.add(event.people, { track: from.track, source: event.source });
   if (event.unplaced > 0) planbUnplaced.add(event.unplaced, { track: from.track });
 

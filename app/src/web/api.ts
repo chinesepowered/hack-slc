@@ -1,7 +1,7 @@
 // The web app's only way to talk to the server. Keep in step with
 // app/src/shared/api-types.ts and the routes in app/src/server/routes/.
 import type { RoomInfo, SearchResponse, Talk, TalksResponse, VersionResponse } from '../shared/api-types';
-import type { ClockState, Insights, LiveSnapshot, PlanBHoldResponse, PlanBPreview, StreamEvent } from '../shared/live-types';
+import type { CapyMoodResponse, ClockState, Insights, LiveSnapshot, PlanBHoldResponse, PlanBPreview, StreamEvent } from '../shared/live-types';
 
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(path, { headers: { accept: 'application/json' } });
@@ -27,8 +27,21 @@ export interface PlanBOptions {
 export const api = {
   version: () => get<VersionResponse>('/api/version'),
   rooms: () => get<RoomInfo[]>('/api/rooms'),
-  talks: (params: { slot?: string; roomId?: string } = {}) =>
+  talks: (params: { slot?: string; roomId?: string; after?: string } = {}) =>
     get<TalksResponse>(`/api/talks?${new URLSearchParams(params)}`),
+  /** Pages through /api/talks (50 per page) using the [start, roomId] sort. */
+  async allTalks(): Promise<Talk[]> {
+    const all: Talk[] = [];
+    let after: string | undefined;
+    for (let page = 0; page < 20; page++) {
+      const { talks } = await api.talks(after ? { after } : {});
+      all.push(...talks);
+      if (talks.length < 50) break;
+      const last = talks[talks.length - 1];
+      after = JSON.stringify([Date.parse(last.start), last.roomId]);
+    }
+    return all;
+  },
   talk: (id: string) => get<Talk>(`/api/talks/${encodeURIComponent(id)}`),
   search: (q: string, limit = 10) => get<SearchResponse>(`/api/search?${new URLSearchParams({ q, limit: String(limit) })}`),
 
@@ -48,6 +61,7 @@ export const api = {
   setClock: (change: { at?: string | number; speed?: number; paused?: boolean }, opsKey?: string) =>
     send<ClockState>('POST', '/api/sim/clock', change, opsKey ? { 'x-ops-key': opsKey } : {}),
   insights: () => get<Insights>('/api/insights'),
+  capyMood: () => get<CapyMoodResponse>('/api/capy'),
 
   /** Live updates; returns a function that closes the stream. */
   stream(onEvent: (event: StreamEvent) => void): () => void {
