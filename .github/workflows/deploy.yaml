@@ -45,6 +45,23 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: docker/build-push-action@v6
+        id: push
+        # The registry once refused a push (permission_denied: write_package)
+        # that the same token had made minutes earlier, so one refusal gets a
+        # second try before the run fails.
+        continue-on-error: true
+        with:
+          context: .
+          push: true
+          build-args: APP_VERSION=${{ steps.meta.outputs.tag }}
+          tags: |
+            ${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}
+            ${{ steps.meta.outputs.image }}:latest
+          labels: org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+
+      - name: Push again if the first try was refused
+        if: steps.push.outcome == 'failure'
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
