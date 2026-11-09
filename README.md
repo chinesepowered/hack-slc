@@ -94,7 +94,7 @@ counters.
 | --- | --- | --- |
 | **Elasticsearch** | The data layer for everything. Hybrid search (BM25 and kNN, fused by RRF). The scheduler as one `script_score` query. ES\|QL for organizer insights. Multilingual search on Elastic Cloud Serverless with Jina embeddings and a reranker. | [search.ts](app/src/server/search.ts), [scheduler.ts](app/src/server/scheduler.ts), [insights.ts](app/src/server/insights.ts), [es-cloud.ts](app/src/server/es-cloud.ts) |
 | **Dash0** | OpenTelemetry traces, metrics, logs and browser RUM from the first commit. Dashboard and SLO as code. Capy's mood *is* the SLO. Agent0 found our slowest call, and the fix took search from up to 857 ms to about 20 ms. | [telemetry.ts](app/src/server/telemetry.ts), [observability/dash0/](observability/dash0), [docs/dash0.md](docs/dash0.md) |
-| **Radar** | Runs on our team cluster through Argo CD. Our coding agent did every cluster operation through Radar's MCP server. Radar showed why the first rollout was stuck, and its Checks went from five findings to two. | [docs/radar.md](docs/radar.md), [deploy/](deploy), [argocd/](argocd) |
+| **Radar** | Runs on our team cluster through Argo CD. Our coding agent did every cluster operation through Radar's MCP server. Radar showed why the first rollout was stuck, its Checks went from five findings to two, and its AI investigation led us to close a 20-second gap in every deploy. | [docs/radar.md](docs/radar.md), [STORY.md](STORY.md), [deploy/](deploy) |
 | **Gitar** | Every change landed through a pull request that Gitar reviewed against our own instructions and rules, with auto-apply on. It raised 12 findings on the first six pull requests, and all 12 were fixed before merge. | [.gitar/](.gitar), [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged) |
 
 ## Who uses it
@@ -210,7 +210,15 @@ The live board shows the scheduler's request as it runs:
 - **Checks before and after**: five medium findings on our workloads after
   the first deploy, three fixed in
   [#9](https://github.com/chinesepowered/hack-slc/pull/9), two left with
-  their reasons. The whole story is in [docs/radar.md](docs/radar.md).
+  their reasons.
+- **An AI investigation we acted on.** Radar's AI investigation found the
+  app healthy and traced two readiness warnings to our own rollouts: about
+  20 seconds without the app on every deploy. Asked about the morning's
+  stuck rollout, it pointed out that nothing stood between a bad image and
+  the cluster. [#13](https://github.com/chinesepowered/hack-slc/pull/13)
+  fixed both: the next deploy failed one request out of 359, and the build
+  now refuses to deploy an image the cluster can't pull. The whole story is
+  in [docs/radar.md](docs/radar.md) and [STORY.md](STORY.md).
 
 ![The cluster's workloads and Argo CD state, and the agent's calls to Radar's MCP server, including the blocked rollout](docs/media/radar.png)
 

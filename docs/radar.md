@@ -8,9 +8,12 @@ Radar Cloud's MCP server; nobody ran `kubectl`.
 
 | Workload | What it is | Requests | Limits |
 | --- | --- | --- | --- |
-| Deployment `app` | The API, the scheduler and the crowd simulator | 150m CPU, 256Mi | 1 CPU, 512Mi |
+| Deployment `app` | The API, the scheduler and the crowd simulator | 150m CPU, 256Mi | 500m CPU, 512Mi |
 | StatefulSet `es` | Elasticsearch 9.2, single node, one 5Gi volume | 500m CPU, 1536Mi | 2 CPU, 2Gi |
-| **Total** | | **650m CPU, 1792Mi** of 2 CPU, 4GiB | **3 CPU, 2.5GiB** of 4 CPU, 8GiB |
+| **Total** | | **650m CPU, 1792Mi** of 2 CPU, 4GiB | **2.5 CPU, 2.5GiB** of 4 CPU, 8GiB |
+
+During a rollout a second `app` pod runs for a few seconds, which takes the
+totals to 800m CPU and 2GiB of requests, and 3 CPU and 3GiB of limits.
 
 Service `app` (port 80) is what the platform routes
 `https://capykube2.cnh.radarhq.io` to. Keys and passwords come from the
@@ -36,6 +39,8 @@ Service `app` (port 80) is what the platform routes
 | `wait_for` | Wait for each rollout instead of polling |
 | `issues`, `diagnose` | See what's broken and why |
 | `get_cluster_audit` | Radar's Checks, before and after |
+| `top_resources` | Live CPU and memory, to size the app's limits |
+| `start_investigation`, `get_investigation`, `follow_up_investigation` | The AI investigation below |
 
 ## What broke, and what Radar showed
 
@@ -84,10 +89,55 @@ The one live issue Radar lists for the cluster, "CoreDNS service DNS
 rewrite", is the virtual cluster's own DNS setup and shows on every team's
 cluster.
 
+## The AI investigation
+
+We started a Radar AI investigation on Deployment `app` through the MCP
+server (`start_investigation`), read it with `get_investigation`, and asked
+one follow-up (`follow_up_investigation`). It ran for about a minute each
+time.
+
+**First answer: healthy, with one thing to see.**
+
+> Deployment app is healthy now; a brief readiness blip during a routine
+> image rollout self-resolved in seconds.
+
+It lined up two readiness-probe warnings with our own image update: one
+replica with the `Recreate` strategy stops the old pod before the new one is
+ready, so the app was unavailable for about 20 seconds on every deploy.
+
+**Follow-up: what happened this morning?** We asked about the 46 minutes
+when the first rollout never became ready. From the revision history it
+rebuilt the timeline: the first sync at 12:46 PM, the progress deadline
+passing twice, a third image becoming ready in 14 seconds at 1:32 PM, and
+nothing differing between the three but the image. It also said what it
+could not see: the Warning events from that window had expired. Without
+them it judged an app start-up bug "likely" (confidence 0.72). The cause
+was the image pull, which we knew only because `wait_for` had shown us the
+error while it was happening.
+
+**What we learned**
+
+- Investigate while it is happening. Kubernetes events expire, and an hour
+  later the evidence that named the cause was gone.
+- Its last point holds whatever the cause: "there's no CI/readiness gate in
+  front of Argo's auto-sync today."
+
+**What we did with it** ([#13](https://github.com/chinesepowered/hack-slc/pull/13))
+
+- The Deployment rolls with one surge pod and `maxUnavailable: 0`, so the
+  old pod serves until the new one is ready. Measured from outside on the
+  next deploy, polling twice a second: one failed request out of 359, and
+  never more than a second between good answers. Before, each deploy took
+  the app away for about 20 seconds.
+- `build-and-deploy` checks that the image can be pulled without
+  credentials before it writes the deploy commit, so an image the cluster
+  can't pull never reaches Argo CD.
+
 ## Radar Cloud pages
 
 - Timeline: https://app.radarhq.io/c/b6tBbVG5WFw/timeline
 - The Argo CD Application: https://app.radarhq.io/c/b6tBbVG5WFw/resources/applications?resource=team-capykube2/app&apiGroup=argoproj.io
 - Checks for our namespace: https://app.radarhq.io/checks?scope=b6tBbVG5WFw&namespace=team-capykube2
-- Deployment `app`, where the sparkle button starts an AI investigation:
-  https://app.radarhq.io/c/b6tBbVG5WFw/resources/deployments?resource=team-capykube2/app
+- Deployment `app`: https://app.radarhq.io/c/b6tBbVG5WFw/resources/deployments?resource=team-capykube2/app
+- The AI investigation (visible to the person who started it):
+  https://app.radarhq.io/c/b6tBbVG5WFw/investigations
