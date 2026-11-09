@@ -1526,6 +1526,14 @@ button {
   }
 }
 
+/* On a wall screen the board is exactly one screen tall: the scheduler log
+   gives way, never the panels below it. */
+@media (min-width: 1101px) and (min-height: 900px) {
+  .board {
+    height: 100vh;
+  }
+}
+
 @media (max-width: 1100px) {
   .board__top {
     grid-template-columns: 1fr;
