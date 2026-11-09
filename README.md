@@ -216,7 +216,7 @@ The live board shows the scheduler's request as it runs:
   20 seconds without the app on every deploy. Asked about the morning's
   stuck rollout, it pointed out that nothing stood between a bad image and
   the cluster. [#13](https://github.com/chinesepowered/hack-slc/pull/13)
-  fixed both: the next deploy failed one request out of 243, and the build
+  fixed both: the next deploy failed one request out of 359, and the build
   now refuses to deploy an image the cluster can't pull. The whole story is
   in [docs/radar.md](docs/radar.md) and [STORY.md](STORY.md).
 

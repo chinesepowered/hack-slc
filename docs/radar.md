@@ -126,7 +126,7 @@ error while it was happening.
 
 - The Deployment rolls with one surge pod and `maxUnavailable: 0`, so the
   old pod serves until the new one is ready. Measured from outside on the
-  next deploy, polling twice a second: one failed request out of 243, and
+  next deploy, polling twice a second: one failed request out of 359, and
   never more than a second between good answers. Before, each deploy took
   the app away for about 20 seconds.
 - `build-and-deploy` checks that the image can be pulled without

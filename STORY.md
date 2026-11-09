@@ -42,7 +42,7 @@ https://app.radarhq.io/checks?scope=b6tBbVG5WFw&namespace=team-capykube2
   ([#13](https://github.com/chinesepowered/hack-slc/pull/13)): a rolling
   update with one surge pod, and a build that refuses to deploy an image the
   cluster can't pull. On the next deploy the public URL, polled twice a
-  second, failed one request out of 243, against about 20 seconds without
+  second, failed one request out of 359, against about 20 seconds without
   the app before.
 - **Checks before and after.** 3 medium findings on the starter, 5 on our
   first deploy, 2 after
