@@ -22,6 +22,8 @@ spec:
         app.kubernetes.io/name: capykube
         app.kubernetes.io/component: api
     spec:
+      # The app never calls the Kubernetes API, so it gets no API token.
+      automountServiceAccountToken: false
       containers:
         - name: app
           image: app
@@ -101,7 +103,17 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
+            # Nothing is written to the image: logs go to stdout and state
+            # lives in Elasticsearch. /tmp is a small scratch volume.
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: RuntimeDefault
             capabilities:
               drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
