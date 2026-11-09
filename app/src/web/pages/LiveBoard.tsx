@@ -14,6 +14,47 @@ import type { CapyMoodResponse, Insights, PlanBPreview } from '../../shared/live
 
 const shortRoom = (id: string) => ROOM_BY_ID.get(id)?.name.replace('Room ', '') ?? id;
 
+interface ScoreQuery {
+  index?: string;
+  query?: {
+    script_score?: {
+      query?: { bool?: { filter?: unknown[]; must_not?: unknown[] } };
+      script?: { source?: string; params?: Record<string, unknown> };
+    };
+  };
+}
+
+/** The scheduler's one Elasticsearch request, split into its Filter and Score halves. */
+function QueryPanel({ preview, onClose }: { preview: PlanBPreview; onClose: () => void }) {
+  const request = preview.query as ScoreQuery;
+  const score = request.query?.script_score;
+  const filters = [...(score?.query?.bool?.filter ?? []), ...(score?.query?.bool?.must_not ?? []).map((clause) => ({ must_not: clause }))];
+  const { v: _vector, walk: _walk, seats: _seats, ...weights } = score?.script?.params ?? {};
+  return (
+    <div className="query-panel" role="region" aria-label="The scheduler's Elasticsearch query">
+      <div className="query-panel__head">
+        <div>
+          <strong>POST {request.index ?? 'capykube-talks'}/_search</strong>
+          <span>Filter and Score in one request · {preview.tookMs} ms</span>
+        </div>
+        <button className="query-panel__close" onClick={onClose} aria-label="Hide the query">
+          ×
+        </button>
+      </div>
+      <h3>
+        <span className="step step--filter">Filter</span> bool.filter: rooms with open seats, talks starting soon
+      </h3>
+      <pre className="query">{filters.map((clause) => JSON.stringify(clause)).join('\n')}</pre>
+      <h3>
+        <span className="step step--score">Score</span> script_score, in Painless
+      </h3>
+      <pre className="query">{(score?.script?.source ?? '').replace(/^\n+|\s+$/g, '').replace(/^ {2}/gm, '')}</pre>
+      <h3>params</h3>
+      <pre className="query">{`v: the full talk's 512-dim embedding\nwalk, seats: per room, from the live venue state\n${JSON.stringify(weights)}`}</pre>
+    </div>
+  );
+}
+
 export function LiveBoard({ compact = false }: { compact?: boolean }) {
   const live = useLive();
   const talks = useTalks();
@@ -50,6 +91,12 @@ export function LiveBoard({ compact = false }: { compact?: boolean }) {
   const rescheduled = live.events.reduce((s, e) => s + e.people - e.unplaced, 0);
   const fastest = live.events.length ? Math.round(live.events.slice(0, 10).reduce((s, e) => s + e.latencyMs, 0) / Math.min(10, live.events.length)) : null;
   const capyMood = mood?.mood ?? 'chill';
+  // Capy narrates the latest decision in its own words.
+  const capySays = latest
+    ? latest.unplaced === latest.people
+      ? `${shortRoom(latest.from.roomId)} filled up and nothing nearby has seats. The hot spring is open.`
+      : `${shortRoom(latest.from.roomId)} filled up. I found ${latest.people - latest.unplaced} seats in ${latest.placements.map((p) => shortRoom(p.roomId)).join(' and ')}.`
+    : 'Every room has seats. I am soaking.';
 
   return (
     <div className={`board ${compact ? 'board--compact' : ''}`}>
@@ -87,21 +134,62 @@ export function LiveBoard({ compact = false }: { compact?: boolean }) {
 
       <main className="board__main">
         <section className="board__map" aria-label="Venue map">
-          <VenueMap live={live} talks={talks} highlightRoom={latest?.from.roomId} />
-          <div className="legend" aria-label="Legend">
-            <span><i className="legend__capy" /> one capybara = 10 people</span>
-            <span><i className="legend__capy legend__capy--yuzu" /> wearing a yuzu = rescheduled by Capy</span>
-            <span><i className="legend__wait">!</i> waiting at a full door</span>
-            <span className="legend__sim">Simulated crowd · synthetic schedule</span>
+          <div className="board__mapbox">
+            <VenueMap live={live} talks={talks} highlightRoom={latest?.from.roomId} />
+            <div className="legend" aria-label="Legend">
+              <span><i className="legend__capy" /> one capybara = 10 people</span>
+              <span><i className="legend__capy legend__capy--yuzu" /> wearing a yuzu = rescheduled by Capy</span>
+              <span><i className="legend__wait">!</i> waiting at a full door</span>
+              <span className="legend__sim">Simulated crowd · synthetic schedule</span>
+            </div>
+            {showQuery && preview && <QueryPanel preview={preview} onClose={() => setShowQuery(false)} />}
           </div>
+
+          <section className="panel hood-strip" aria-label="Under the hood">
+            <div className="hood-strip__intro">
+              <h2 className="panel__title">Under the hood</h2>
+              {preview && preview.candidates.length > 0 ? (
+                <>
+                  <p className="panel__sub">
+                    One Elasticsearch query, {preview.tookMs} ms, for “{preview.from.title.slice(0, 38)}…”
+                  </p>
+                  <p className="steps">
+                    <span className="step step--filter">Filter</span>
+                    <span className="step step--score">Score</span>
+                    <span className="step step--bind">Bind</span>
+                  </p>
+                  <button className="link-button" onClick={() => setShowQuery((v) => !v)} aria-expanded={showQuery}>
+                    {showQuery ? 'Hide the query' : 'Show the Elasticsearch query'}
+                  </button>
+                </>
+              ) : (
+                <p className="panel__sub">When a room fills up, the scheduler's Filter, Score and Bind show up here.</p>
+              )}
+            </div>
+            {preview && preview.candidates.length > 0 && (
+              <ol className="hood">
+                {preview.candidates.slice(0, compact ? 2 : 3).map((c, i) => (
+                  <li key={c.talk.id} className={i === 0 ? 'hood__pick' : undefined}>
+                    <div className="hood__title">
+                      <b>{shortRoom(c.roomId)}</b> {c.talk.title}
+                    </div>
+                    <ScoreBars scores={c.scores} compact />
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
         </section>
 
         <aside className="board__side">
           <section className="panel panel--mood">
-            <Capy mood={capyMood} size={54} spring={false} />
+            <Capy mood={capyMood} size={96} spring={false} />
             <div>
               <h2 className="panel__title">Capy is {capyMood === 'chill' ? 'chilling' : capyMood === 'happy' ? 'happy' : 'worried'}</h2>
               <p className="panel__sub">{mood ? `${mood.source === 'dash0' ? 'Dash0 SLO' : 'Plan B SLO'}: ${mood.detail}` : 'Checking the SLO…'}</p>
+              <p className="bubble" aria-live="polite">
+                {capySays}
+              </p>
             </div>
           </section>
 
@@ -109,7 +197,7 @@ export function LiveBoard({ compact = false }: { compact?: boolean }) {
             <h2 className="panel__title">Scheduler log</h2>
             {live.events.length === 0 && <p className="panel__empty">No full rooms yet. Capy is soaking.</p>}
             <ol className="feed">
-              {live.events.slice(0, compact ? 3 : 4).map((e) => (
+              {live.events.slice(0, compact ? 3 : 5).map((e) => (
                 <li key={`${e.at}-${e.from.roomId}-${e.people}-${e.source}`} className={`feed__item feed__item--${e.source}`}>
                   <div className="feed__head">
                     <time>{formatVenueTime(e.at)}</time>
@@ -129,34 +217,6 @@ export function LiveBoard({ compact = false }: { compact?: boolean }) {
               ))}
             </ol>
           </section>
-
-          {preview && preview.candidates.length > 0 && (
-            <section className="panel panel--hood">
-              <div className="panel__row">
-                <h2 className="panel__title">Under the hood</h2>
-                <button className="link-button" onClick={() => setShowQuery((v) => !v)} aria-expanded={showQuery}>
-                  {showQuery ? 'Hide query' : 'Elasticsearch query'}
-                </button>
-              </div>
-              <p className="panel__sub">
-                Filter + score in one Elasticsearch query · {preview.tookMs} ms · for “{preview.from.title.slice(0, 42)}…”
-              </p>
-              {showQuery ? (
-                <pre className="query">{JSON.stringify(preview.query, null, 1)}</pre>
-              ) : (
-                <ol className="hood">
-                  {preview.candidates.slice(0, 2).map((c) => (
-                    <li key={c.talk.id}>
-                      <div className="hood__title">
-                        <b>{shortRoom(c.roomId)}</b> {c.talk.title}
-                      </div>
-                      <ScoreBars scores={c.scores} compact />
-                    </li>
-                  ))}
-                </ol>
-              )}
-            </section>
-          )}
 
           {insights && insights.byTrack.length > 0 && (
             <section className="panel">
