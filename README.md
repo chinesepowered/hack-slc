@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=__VsF8wpzc0"><b>▶ Watch the demo (2:29)</b></a>
+  <a href="https://www.youtube.com/watch?v=Sclc_WdaIWc"><b>▶ Watch the demo (2:39)</b></a>
   &nbsp;·&nbsp;
   <a href="https://capykube2.cnh.radarhq.io/live"><b>Live board</b></a>
   &nbsp;·&nbsp;
@@ -56,7 +56,7 @@ and **Radar**. Every change landed through a pull request reviewed by
 **Gitar**.
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=__VsF8wpzc0"><img src="docs/media/video-poster.png" width="820" alt="Watch the demo on YouTube (2:29)" /></a>
+  <a href="https://www.youtube.com/watch?v=Sclc_WdaIWc"><img src="docs/media/video-poster.png" width="820" alt="Watch the demo on YouTube (2:39)" /></a>
 </p>
 
 Built at the [Cloud Native Hackathon](https://www.wemakedevs.org/hackathons/cnh),
@@ -92,10 +92,10 @@ counters.
 
 | Track | What we did with it | Where to look | In the video |
 | --- | --- | --- | --- |
-| **Elasticsearch** | The data layer for everything. Hybrid search (BM25 and kNN, fused by RRF). The scheduler as one `script_score` query. ES\|QL for organizer insights. Multilingual search on Elastic Cloud Serverless with Jina embeddings and a reranker. | [search.ts](app/src/server/search.ts), [scheduler.ts](app/src/server/scheduler.ts), [insights.ts](app/src/server/insights.ts), [es-cloud.ts](app/src/server/es-cloud.ts) | [0:30](https://www.youtube.com/watch?v=__VsF8wpzc0&t=30s) |
-| **Dash0** | OpenTelemetry traces, metrics, logs and browser RUM from the first commit. Dashboard and SLO as code. Capy's mood *is* the SLO. Agent0 found our slowest call, and the fix took search from up to 857 ms to about 20 ms. | [telemetry.ts](app/src/server/telemetry.ts), [observability/dash0/](observability/dash0), [docs/dash0.md](docs/dash0.md) | [1:04](https://www.youtube.com/watch?v=__VsF8wpzc0&t=64s) |
-| **Radar** | Runs on our team cluster through Argo CD. Our coding agent did every cluster operation through Radar's MCP server. Radar showed why the first rollout was stuck, its Checks went from five findings to two, and its AI investigation led us to close a 20-second gap in every deploy. | [docs/radar.md](docs/radar.md), [STORY.md](STORY.md), [deploy/](deploy) | [1:24](https://www.youtube.com/watch?v=__VsF8wpzc0&t=84s) |
-| **Gitar** | Every change landed through a pull request that Gitar reviewed against our own instructions and rules, with auto-apply on. It raised 12 findings on the first six pull requests, and all 12 were fixed before merge. | [.gitar/](.gitar), [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged) | [1:56](https://www.youtube.com/watch?v=__VsF8wpzc0&t=116s) |
+| **Elasticsearch** | The data layer for everything. Hybrid search (BM25 and kNN, fused by RRF). The scheduler as one `script_score` query. ES\|QL for organizer insights. Multilingual search on Elastic Cloud Serverless with Jina embeddings and a reranker. | [search.ts](app/src/server/search.ts), [scheduler.ts](app/src/server/scheduler.ts), [insights.ts](app/src/server/insights.ts), [es-cloud.ts](app/src/server/es-cloud.ts) | [0:30](https://www.youtube.com/watch?v=Sclc_WdaIWc&t=30s) |
+| **Dash0** | OpenTelemetry traces, metrics, logs and browser RUM from the first commit. Dashboard and SLO as code. Capy's mood *is* the SLO. Agent0 found our slowest call, and the fix took search from up to 857 ms to about 20 ms. | [telemetry.ts](app/src/server/telemetry.ts), [observability/dash0/](observability/dash0), [docs/dash0.md](docs/dash0.md) | [1:04](https://www.youtube.com/watch?v=Sclc_WdaIWc&t=64s) |
+| **Radar** | Runs on our team cluster through Argo CD. Our coding agent did every cluster operation through Radar's MCP server. Radar showed why the first rollout was stuck, its Checks went from five findings to two, and its AI investigation led us to close a 20-second gap in every deploy. | [docs/radar.md](docs/radar.md), [STORY.md](STORY.md), [deploy/](deploy) | [1:24](https://www.youtube.com/watch?v=Sclc_WdaIWc&t=84s) |
+| **Gitar** | Every change landed through a pull request that Gitar reviewed against our own instructions and rules, with auto-apply on. It raised 12 findings on the first six pull requests, and all 12 were fixed before merge. | [.gitar/](.gitar), [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged) | [1:56](https://www.youtube.com/watch?v=Sclc_WdaIWc&t=116s) |
 
 ## Who uses it
 
