@@ -1,0 +1,53 @@
+{
+  "apiVersion": "openslo/v1",
+  "kind": "SLO",
+  "metadata": {
+    "name": "capykube-planb-latency",
+    "labels": {
+      "dash0.com/origin": "capykube-planb-latency"
+    }
+  },
+  "spec": {
+    "service": "capykube",
+    "indicator": {
+      "metadata": {
+        "name": "planb-under-500ms",
+        "displayName": "Plan B decisions under 500 ms"
+      },
+      "spec": {
+        "ratioMetric": {
+          "counter": true,
+          "good": {
+            "metricSource": {
+              "type": "Prometheus",
+              "spec": {
+                "query": "capykube_planb_duration_milliseconds_bucket{le=\"500\"}"
+              }
+            }
+          },
+          "total": {
+            "metricSource": {
+              "type": "Prometheus",
+              "spec": {
+                "query": "capykube_planb_duration_milliseconds_count"
+              }
+            }
+          }
+        }
+      }
+    },
+    "timeWindow": [
+      {
+        "duration": "28d",
+        "isRolling": true
+      }
+    ],
+    "budgetingMethod": "Occurrences",
+    "objectives": [
+      {
+        "displayName": "99% of Plan B decisions under 500 ms",
+        "target": 0.99
+      }
+    ]
+  }
+}

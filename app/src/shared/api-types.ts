@@ -51,7 +51,8 @@ export interface SearchHit {
 
 export interface SearchResponse {
   query: string;
-  mode: 'hybrid' | 'keyword';
+  /** hybrid: in-cluster BM25 + kNN fused with RRF. multilingual: Jina on Elastic Cloud Serverless, reranked. */
+  mode: 'hybrid' | 'keyword' | 'multilingual';
   tookMs: number;
   hits: SearchHit[];
 }

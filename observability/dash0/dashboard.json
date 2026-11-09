@@ -1,0 +1,393 @@
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "capykube",
+    "labels": {
+      "dash0.com/origin": "capykube-overview"
+    }
+  },
+  "spec": {
+    "display": {
+      "name": "CapyKube: rooms, Plan B and the SLO",
+      "description": "The conference as a cluster: room occupancy, demand turned away, Plan B latency against its SLO, search modes and LLM latency. Managed as code in observability/dash0/."
+    },
+    "duration": "1h",
+    "refreshInterval": "30s",
+    "panels": {
+      "slo_ratio": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Plan B SLO: decisions under 500 ms",
+            "description": "Share of Plan B decisions (filter + score + bind) that finish under 500 ms. Objective: 99%."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last",
+              "format": {
+                "unit": "percent-decimal"
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rate(capykube_planb_duration_milliseconds_bucket{le=\"500\"}[5m])) / sum(rate(capykube_planb_duration_milliseconds_count[5m]))"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "planb_p95": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Plan B decision p95",
+            "description": "p95 latency of one Plan B decision, by source (crowd simulator or attendee app)."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "histogram_quantile(0.95, sum by (le, source) (rate(capykube_planb_duration_milliseconds_bucket[5m])))",
+                    "seriesNameFormat": "{{source}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "turned_away": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "People turned away, by track",
+            "description": "Demand that full rooms turned away. Every Plan B request is one of these people, counted for the first time."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (track) (increase(capykube_planb_people_total[5m]))",
+                    "seriesNameFormat": "{{track}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "occupancy": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Room occupancy",
+            "description": "People in each session room right now (the live map, as metrics)."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (capykube_room_id) (capykube_room_present)",
+                    "seriesNameFormat": "{{capykube_room_id}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "utilization": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Room utilization",
+            "description": "Seats taken or held, as a share of capacity. 100% means the door is closing."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "percent-decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max by (capykube_room_id) (capykube_room_utilization)",
+                    "seriesNameFormat": "{{capykube_room_id}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "crowd": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Walking and waiting",
+            "description": "People walking between rooms, and people waiting at a full door for their Plan B."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (capykube_crowd_state) (capykube_crowd_people)",
+                    "seriesNameFormat": "{{capykube_crowd_state}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "search": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Talk searches by mode",
+            "description": "Hybrid (BM25 + kNN fused by Elasticsearch RRF) versus keyword-only fallback."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "requests/sec"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (mode) (rate(capykube_search_requests_total[5m]))",
+                    "seriesNameFormat": "{{mode}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "capy_note": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Capy's note latency (gpt-6-luna)",
+            "description": "Time to write Capy's one-sentence explanation, including the model call. Fallback means the template answered."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "position": "bottom",
+                "mode": "list"
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "histogram_quantile(0.95, sum by (le, outcome) (rate(capykube_capy_note_duration_milliseconds_bucket[15m])))",
+                    "seriesNameFormat": "{{outcome}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "CapyKube"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/slo_ratio"
+              }
+            },
+            {
+              "x": 6,
+              "y": 0,
+              "width": 9,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/planb_p95"
+              }
+            },
+            {
+              "x": 15,
+              "y": 0,
+              "width": 9,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/turned_away"
+              }
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/occupancy"
+              }
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/utilization"
+              }
+            },
+            {
+              "x": 0,
+              "y": 14,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/crowd"
+              }
+            },
+            {
+              "x": 8,
+              "y": 14,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/search"
+              }
+            },
+            {
+              "x": 16,
+              "y": 14,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/capy_note"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

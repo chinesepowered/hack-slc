@@ -43,7 +43,8 @@ export const api = {
     return all;
   },
   talk: (id: string) => get<Talk>(`/api/talks/${encodeURIComponent(id)}`),
-  search: (q: string, limit = 10) => get<SearchResponse>(`/api/search?${new URLSearchParams({ q, limit: String(limit) })}`),
+  search: (q: string, limit = 10, anyLanguage = false) =>
+    get<SearchResponse>(`/api/search?${new URLSearchParams({ q, limit: String(limit), ...(anyLanguage ? { lang: 'any' } : {}) })}`),
 
   snapshot: () => get<LiveSnapshot>('/api/live/snapshot'),
   planB: (talkId: string, opts: PlanBOptions = {}) =>
