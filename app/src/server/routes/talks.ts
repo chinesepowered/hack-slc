@@ -10,17 +10,18 @@ export async function talkRoutes(app: FastifyInstance) {
     ROOMS.map(({ x: _x, y: _y, w: _w, h: _h, ...room }) => room),
   );
 
-  app.get<{ Querystring: { slot?: string; roomId?: string } }>('/api/talks', async (req): Promise<TalksResponse> => {
+  app.get<{ Querystring: { slot?: string; roomId?: string; after?: string } }>('/api/talks', async (req): Promise<TalksResponse> => {
     const filter = [];
     if (req.query.slot) filter.push({ term: { slot: req.query.slot } });
     if (req.query.roomId) filter.push({ term: { roomId: req.query.roomId } });
     const res = await es.search<Talk>({
       index: INDEX.talks,
-      size: 200,
+      size: 50,
       timeout: '2s',
       _source: { excludes: ['embedding'] },
       query: { bool: { filter } },
       sort: [{ start: 'asc' }, { roomId: 'asc' }],
+      ...(req.query.after ? { search_after: JSON.parse(req.query.after) } : {}),
     });
     return { talks: res.hits.hits.map((h) => h._source as Talk) };
   });
@@ -34,6 +35,7 @@ export async function talkRoutes(app: FastifyInstance) {
   app.get<{ Querystring: { q?: string; limit?: string } }>('/api/search', async (req, reply): Promise<SearchResponse | void> => {
     const q = (req.query.q ?? '').trim().slice(0, 200);
     if (!q) return reply.code(400).send({ error: 'q is required' });
-    return searchTalks(q, Number(req.query.limit ?? 10));
+    const limit = Number(req.query.limit);
+    return searchTalks(q, Number.isFinite(limit) ? limit : 10);
   });
 }
