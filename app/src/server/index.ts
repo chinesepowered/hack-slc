@@ -3,18 +3,23 @@ import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import { config } from './config';
 import { log } from './log';
+import { bootstrap, isReady } from './es';
+import { talkRoutes } from './routes/talks';
 
 async function main() {
   const app = Fastify({ loggerInstance: log, trustProxy: true });
 
   app.get('/healthz', async () => 'ok');
-  app.get('/readyz', async () => 'ok');
+  // Ready once Elasticsearch has its indices and the conference data.
+  app.get('/readyz', async (_req, reply) => (isReady() ? 'ok' : reply.code(503).send('warming up')));
 
   app.get('/api/version', async () => ({
     name: 'capykube',
     version: config.version,
     team: config.team,
   }));
+
+  await app.register(talkRoutes);
 
   await app.register(fastifyStatic, {
     root: path.resolve(config.webDir),
@@ -31,6 +36,14 @@ async function main() {
 
   await app.listen({ port: config.port, host: '0.0.0.0' });
   log.info({ port: config.port, version: config.version }, 'capykube listening');
+
+  bootstrap().then(
+    () => log.info('elasticsearch ready'),
+    (err) => {
+      log.fatal({ err }, 'elasticsearch bootstrap failed');
+      process.exit(1);
+    },
+  );
 
   // Exit cleanly when Kubernetes stops the pod, so rollouts don't drop requests.
   process.once('SIGTERM', async () => {

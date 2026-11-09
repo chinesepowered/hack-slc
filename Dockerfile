@@ -14,6 +14,7 @@ ENV NODE_ENV=production PORT=8080 APP_VERSION=$APP_VERSION
 COPY --from=build /app/package.json ./
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/data ./data
 # The node image's "node" user, by number so runAsNonRoot can check it.
 USER 1000
 EXPOSE 8080

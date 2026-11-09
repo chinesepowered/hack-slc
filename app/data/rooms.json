@@ -1,0 +1,20 @@
+[
+  { "id": "GB", "name": "Grand Ballroom", "kind": "keynote", "level": 1, "capacity": 3000, "track": "Keynotes", "stepFree": true, "x": 40, "y": 620, "w": 480, "h": 190 },
+  { "id": "150A", "name": "Room 150 A", "kind": "session", "level": 1, "capacity": 240, "track": "Developer Experience", "stepFree": true, "x": 540, "y": 620, "w": 210, "h": 190 },
+  { "id": "151", "name": "Room 151", "kind": "session", "level": 1, "capacity": 180, "track": "Community & Inclusion", "stepFree": true, "x": 850, "y": 620, "w": 180, "h": 190 },
+  { "id": "155E", "name": "Room 155 E", "kind": "session", "level": 1, "capacity": 420, "track": "Security", "stepFree": true, "x": 1050, "y": 620, "w": 280, "h": 190 },
+  { "id": "155F", "name": "Room 155 F", "kind": "session", "level": 1, "capacity": 300, "track": "Observability", "stepFree": true, "x": 1350, "y": 620, "w": 210, "h": 190 },
+
+  { "id": "250A", "name": "Room 250 A", "kind": "session", "level": 2, "capacity": 450, "track": "Platform Engineering", "stepFree": true, "x": 40, "y": 330, "w": 280, "h": 190 },
+  { "id": "250B", "name": "Room 250 B", "kind": "session", "level": 2, "capacity": 320, "track": "AI & ML on Kubernetes", "stepFree": true, "x": 340, "y": 330, "w": 230, "h": 190 },
+  { "id": "251", "name": "Room 251", "kind": "session", "level": 2, "capacity": 200, "track": "Networking & eBPF", "stepFree": true, "x": 590, "y": 330, "w": 170, "h": 190 },
+  { "id": "254", "name": "Room 254", "kind": "session", "level": 2, "capacity": 150, "track": "WebAssembly & Runtimes", "stepFree": true, "x": 850, "y": 330, "w": 160, "h": 190 },
+  { "id": "SPRING", "name": "Hot Spring quiet room", "kind": "quiet", "level": 2, "capacity": 40, "track": "Quiet room", "stepFree": true, "x": 1030, "y": 330, "w": 300, "h": 190 },
+  { "id": "YUZU", "name": "Yuzu Coffee", "kind": "amenity", "level": 2, "capacity": 60, "track": "Coffee", "stepFree": true, "x": 1350, "y": 330, "w": 210, "h": 190 },
+
+  { "id": "355A", "name": "Room 355 A", "kind": "session", "level": 3, "capacity": 560, "track": "Operations & Reliability", "stepFree": true, "x": 40, "y": 40, "w": 300, "h": 190 },
+  { "id": "355B", "name": "Room 355 B", "kind": "session", "level": 3, "capacity": 380, "track": "Storage & Data", "stepFree": true, "x": 360, "y": 40, "w": 250, "h": 190 },
+  { "id": "355C", "name": "Room 355 C", "kind": "session", "level": 3, "capacity": 220, "track": "Cost & Sustainability", "stepFree": true, "x": 630, "y": 40, "w": 130, "h": 190 },
+  { "id": "355D", "name": "Room 355 D", "kind": "session", "level": 3, "capacity": 140, "track": "Maintainer Track", "stepFree": false, "note": "Tiered seating, stairs only", "x": 850, "y": 40, "w": 160, "h": 190 },
+  { "id": "LOUNGE", "name": "Hallway Track Lounge", "kind": "amenity", "level": 3, "capacity": 200, "track": "Hallway track", "stepFree": true, "x": 1030, "y": 40, "w": 530, "h": 190 }
+]
