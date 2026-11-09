@@ -17,6 +17,44 @@
   <a href="https://capykube2.cnh.radarhq.io"><b>Attendee app</b></a>
 </p>
 
+## What CapyKube is
+
+**CapyKube is a web app that gives conference attendees a Plan B the moment
+a room fills up.** Popular talks fill early and turn people away, while
+similar talks down the hall have empty seats. CapyKube knows how full every
+room is. When one fills, it finds each person the closest talk by topic that
+still has seats, starts in the next few minutes and is a short walk away,
+and holds them a seat while they walk over.
+
+It works like the Kubernetes scheduler, with **rooms as nodes and attendees
+as pods**:
+
+| Phase | What Capy does |
+| --- | --- |
+| **Filter** | Keeps the talks starting in the next few minutes, in rooms with open seats (step-free only, if you ask). |
+| **Score** | Ranks them: closest in topic, shortest walk, most free seats, starts soonest. |
+| **Bind** | Holds your seat, so Capy never sends 200 people to a room with 30 seats. |
+
+Filter and Score run as **one Elasticsearch query**, in about 10 ms.
+
+There are three things to look at:
+
+- **The attendee app**, on a phone. Search the schedule in your own words,
+  or in any language. When your talk is full, one tap shows Capy's pick and
+  why, and one more holds your seat.
+- **The live board**, on a big screen. The venue as a cluster: 300 simulated
+  capybaras, ten people each, walk to their talks. A full room turns red and
+  Capy reschedules the overflow. Organizers see something they never had:
+  how many people were turned away, by track.
+- **The door.** Staff close a room with one tap, and the "Room full" sign
+  carries a QR code that opens that room's Plan B. Nothing to install.
+
+All of its data lives in **Elasticsearch**. It sends traces, metrics, logs
+and browser RUM to **Dash0** with OpenTelemetry, and Capy's mood on the
+board is our SLO. It runs on our team's Kubernetes cluster through Argo CD
+and **Radar**. Every change landed through a pull request reviewed by
+**Gitar**.
+
 <p align="center">
   <a href="https://www.youtube.com/watch?v=9PdHfhU55Dk"><img src="docs/media/video-poster.png" width="820" alt="Watch the two-minute demo on YouTube" /></a>
 </p>
@@ -24,27 +62,6 @@
 Built at the [Cloud Native Hackathon](https://www.wemakedevs.org/hackathons/cnh),
 Salt Lake City, November 9, 2026, by team **capykube2**, for the
 Elasticsearch, Dash0, Radar and Gitar tracks.
-
-## The problem
-
-Popular conference rooms fill up early and turn people away, while similar
-talks down the hall have empty seats. You find out at the door, and by the
-time you have picked something else, that room is full too. The organizers
-never learn how many people they turned away, or what those people wanted to
-hear.
-
-## The idea
-
-Treat the venue like a cluster: **rooms are nodes, attendees are pods**. When
-a room fills, reschedule the overflow the way Kubernetes reschedules pods.
-
-| Phase | What Capy does |
-| --- | --- |
-| **Filter** | Keeps the talks starting in the next few minutes, in rooms with open seats (step-free only, if you ask). |
-| **Score** | Ranks them: closest in topic, shortest walk, most free seats, starts soonest. |
-| **Bind** | Holds your seat while you walk, so Capy never sends 200 people to a room with 30 seats. |
-
-Filter and Score are **one Elasticsearch query** that takes about 10 ms.
 
 ![The live board: capybaras walking to talks, a full room turning red, and Capy rescheduling the overflow](docs/media/live.png)
 
