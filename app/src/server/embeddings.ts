@@ -5,6 +5,8 @@
 //   3. OpenAI, with a deadline: past it, search answers with keywords and the
 //      embedding finishes in the background to fill both caches.
 import OpenAI from 'openai';
+import { createHash } from 'node:crypto';
+import { trace } from '@opentelemetry/api';
 import { config } from './config';
 import { log } from './log';
 import { es } from './es';
@@ -12,6 +14,8 @@ import { INDEX } from './es-mappings';
 import { embeddingCache } from './metrics';
 
 const client = config.openai.apiKey ? new OpenAI({ apiKey: config.openai.apiKey, timeout: 5_000, maxRetries: 1 }) : null;
+const tracer = trace.getTracer('capykube');
+const documentId = (key: string) => createHash('sha256').update(key).digest('hex');
 
 const memory = new Map<string, number[]>();
 const inflight = new Map<string, Promise<number[] | null>>();
@@ -26,8 +30,9 @@ function remember(key: string, vector: number[]) {
 
 async function fromIndex(key: string): Promise<number[] | null> {
   try {
-    const res = await es.get<{ vector: number[] }>({ index: INDEX.queryEmbeddings, id: key }, { ignore: [404], requestTimeout: 1_000 });
-    return res.found && res._source ? res._source.vector : null;
+    const res = await es.get<{ vector: number[]; model: string }>({ index: INDEX.queryEmbeddings, id: documentId(key) }, { ignore: [404], requestTimeout: 1_000 });
+    const src = res.found ? res._source : undefined;
+    return src && src.model === config.openai.embeddingModel && src.vector.length === config.openai.embeddingDimensions ? src.vector : null;
   } catch {
     return null;
   }
@@ -46,7 +51,7 @@ function fetchEmbedding(key: string): Promise<number[] | null> {
       const vector = res.data[0]?.embedding ?? null;
       if (vector) {
         remember(key, vector);
-        es.index({ index: INDEX.queryEmbeddings, id: key, document: { query: key, vector, model: config.openai.embeddingModel } }).catch(
+        es.index({ index: INDEX.queryEmbeddings, id: documentId(key), document: { query: key, vector, model: config.openai.embeddingModel } }).catch(
           (err) => log.warn({ err: (err as Error).message }, 'could not store a query embedding'),
         );
       }
@@ -88,6 +93,15 @@ export async function embedQuery(text: string, budgetMs = 600): Promise<number[]
 
 /** Embeds the phone's suggested searches so the first tap is a cache hit. */
 export async function warmUp(queries: string[]) {
-  await Promise.all(queries.map((q) => embedQuery(q, 10_000)));
-  log.info({ queries: queries.length }, 'warmed up query embeddings');
+  await tracer.startActiveSpan('capykube.embeddings.warm_up', async (span) => {
+    try {
+      await Promise.all(queries.map((q) => embedQuery(q, 10_000)));
+      log.info({ queries: queries.length }, 'warmed up query embeddings');
+    } catch (err) {
+      span.recordException(err as Error);
+      throw err;
+    } finally {
+      span.end();
+    }
+  });
 }
