@@ -7,6 +7,7 @@ import { bindSeats, previewPlanB, recordPlanB } from '../scheduler';
 import { capyNote } from '../capy-note';
 import { insights } from '../insights';
 import { localMood } from '../capy-mood';
+import { dash0Mood } from '../dash0-slo';
 import { ROOM_BY_ID } from '../../shared/venue';
 import type { CapyMoodResponse, Insights, LiveSnapshot, PlanBHoldResponse, PlanBPreview } from '../../shared/live-types';
 
@@ -104,5 +105,5 @@ export async function liveRoutes(app: FastifyInstance) {
 
   app.get('/api/insights', async (): Promise<Insights> => insights());
 
-  app.get('/api/capy', async (): Promise<CapyMoodResponse> => localMood());
+  app.get('/api/capy', async (): Promise<CapyMoodResponse> => (await dash0Mood()) ?? localMood());
 }

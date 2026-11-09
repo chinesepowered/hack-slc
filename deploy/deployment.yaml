@@ -47,6 +47,21 @@ spec:
                   fieldPath: spec.nodeName
             - name: ES_URL
               value: "http://es:9200"
+            # Multilingual search: Jina on Elastic Cloud Serverless (optional).
+            - name: ES_CLOUD_URL
+              value: "https://my-elasticsearch-project-daf7e2.es.asia-northeast1.gcp.elastic.cloud:443"
+            - name: ES_CLOUD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: capykube-secrets
+                  key: ES_CLOUD_API_KEY
+                  optional: true
+            - name: OPS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: capykube-secrets
+                  key: OPS_KEY
+                  optional: true
             # Created out of band (never committed): see README, "Secrets".
             - name: ELASTIC_PASSWORD
               valueFrom:

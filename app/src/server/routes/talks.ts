@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { es } from '../es';
 import { INDEX } from '../es-mappings';
 import { searchTalks } from '../search';
+import { searchMultilingual } from '../es-cloud';
 import { ROOMS } from '../../shared/venue';
 import type { RoomInfo, SearchResponse, Talk, TalksResponse } from '../../shared/api-types';
 
@@ -32,10 +33,13 @@ export async function talkRoutes(app: FastifyInstance) {
     return res._source;
   });
 
-  app.get<{ Querystring: { q?: string; limit?: string } }>('/api/search', async (req, reply): Promise<SearchResponse | void> => {
+  app.get<{ Querystring: { q?: string; limit?: string; lang?: string } }>('/api/search', async (req, reply): Promise<SearchResponse | void> => {
     const q = (req.query.q ?? '').trim().slice(0, 200);
     if (!q) return reply.code(400).send({ error: 'q is required' });
     const limit = Number(req.query.limit);
-    return searchTalks(q, Number.isFinite(limit) ? limit : 10);
+    const n = Number.isFinite(limit) ? limit : 10;
+    // lang=any: ask in any language, answered by Jina on Elastic Cloud Serverless.
+    if (req.query.lang === 'any') return searchMultilingual(q, n);
+    return searchTalks(q, n);
   });
 }

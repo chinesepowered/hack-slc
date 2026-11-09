@@ -207,6 +207,7 @@ export function AttendeeApp() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResponse | null>(null);
   const [searching, setSearching] = useState(false);
+  const [anyLanguage, setAnyLanguage] = useState(false);
   const [planB, setPlanB] = useState<Talk | null>(null);
   const now = simNow(live);
 
@@ -226,7 +227,7 @@ export function AttendeeApp() {
     if (!q.trim()) return;
     setSearching(true);
     try {
-      setResults(await api.search(q, 8));
+      setResults(await api.search(q, 8, anyLanguage));
     } finally {
       setSearching(false);
     }
@@ -282,6 +283,10 @@ export function AttendeeApp() {
                 {searching ? '…' : 'Search'}
               </button>
             </form>
+            <label className="toggle toggle--lang">
+              <input type="checkbox" checked={anyLanguage} onChange={(e) => setAnyLanguage(e.target.checked)} />
+              <span>Ask in any language · Jina on Elastic Cloud</span>
+            </label>
             {!results && (
               <div className="suggest">
                 <p className="muted">Try asking in your own words:</p>
@@ -295,9 +300,15 @@ export function AttendeeApp() {
             {results && (
               <div className="results">
                 <p className="muted small">
-                  {results.hits.length} talks · {results.mode === 'hybrid' ? 'keywords + meaning (Elasticsearch RRF)' : 'keywords'} · {results.tookMs} ms
+                  {results.hits.length} talks ·{' '}
+                  {results.mode === 'multilingual'
+                    ? 'any language (Jina embeddings + reranker, Elastic Cloud)'
+                    : results.mode === 'hybrid'
+                      ? 'keywords + meaning (Elasticsearch RRF)'
+                      : 'keywords'}{' '}
+                  · {results.tookMs} ms
                 </p>
-                {results.hits.map((h) => card(h.talk, !h.titleOverlap))}
+                {results.hits.map((h) => card(h.talk, results.mode !== 'multilingual' && !h.titleOverlap))}
               </div>
             )}
           </section>
