@@ -107,7 +107,15 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
     try {
       const res = await api.holdSeat(talk.id, toTalkId, { quiet, stepFree });
       // The server may bind a different room if the chosen one just filled.
-      const chosen = preview?.candidates.find((c) => c.talk.id === res.hold.talkId)?.talk ?? (await api.talk(res.hold.talkId));
+      let chosen = preview?.candidates.find((c) => c.talk.id === res.hold.talkId)?.talk;
+      if (!chosen) {
+        try {
+          chosen = await api.talk(res.hold.talkId);
+        } catch (e) {
+          await api.releaseHold(res.hold.id).catch(() => undefined);
+          throw e;
+        }
+      }
       setHold({ ...res, talk: chosen });
       onSaved(chosen);
     } catch {
