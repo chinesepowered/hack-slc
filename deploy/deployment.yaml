@@ -53,13 +53,16 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            # Replay the minutes around the 2:00 PM rush (1:42 to 2:14 PM
+            # Replay the minutes around the 2:00 PM rush (1:42 to 2:09 PM
             # Mountain Time), so a visitor sees a room fill up within a minute
-            # or two. The demo controls can still jump anywhere in the day.
+            # or two. The replay stops before 2:10 PM because Plan B only
+            # offers talks that started in the last ten minutes: later than
+            # that, a full room would have no Plan B to show. The demo
+            # controls can still jump anywhere in the day.
             - name: SIM_LOOP_START
               value: "2026-11-11T20:42:00Z"
             - name: SIM_LOOP_END
-              value: "2026-11-11T21:14:00Z"
+              value: "2026-11-11T21:09:00Z"
             - name: ES_URL
               value: "http://es:9200"
             # Multilingual search: Jina on Elastic Cloud Serverless (optional).
