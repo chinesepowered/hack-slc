@@ -49,7 +49,10 @@ async function ensureTrialLicense(): Promise<void> {
 async function ensureIndices(): Promise<void> {
   for (const [index, mappings] of Object.entries(MAPPINGS)) {
     const exists = await es.indices.exists({ index });
-    if (!exists) {
+    if (exists) {
+      // Mappings only ever gain fields, which Elasticsearch applies in place.
+      await es.indices.putMapping({ index, ...mappings });
+    } else {
       try {
         await es.indices.create({
           index,

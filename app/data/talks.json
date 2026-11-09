@@ -1171,7 +1171,7 @@
       "slot": "S4",
       "start": "2026-11-11T21:00:00Z",
       "end": "2026-11-11T21:30:00Z",
-      "interest": 240,
+      "interest": 150,
       "captioned": false
     },
     {
@@ -1250,7 +1250,7 @@
       "slot": "S4",
       "start": "2026-11-11T21:00:00Z",
       "end": "2026-11-11T21:30:00Z",
-      "interest": 160,
+      "interest": 80,
       "captioned": false
     },
     {
@@ -1277,7 +1277,7 @@
       "slot": "S4",
       "start": "2026-11-11T21:00:00Z",
       "end": "2026-11-11T21:30:00Z",
-      "interest": 120,
+      "interest": 60,
       "captioned": false
     },
     {
@@ -1383,7 +1383,7 @@
       "slot": "S4",
       "start": "2026-11-11T21:00:00Z",
       "end": "2026-11-11T21:30:00Z",
-      "interest": 110,
+      "interest": 60,
       "captioned": false
     },
     {

@@ -74,6 +74,7 @@ const planb: estypes.MappingTypeMapping = {
   properties: {
     '@timestamp': { type: 'date' },
     simTime: { type: 'date' },
+    runId: { type: 'keyword' },
     source: { type: 'keyword' },
     fromTalkId: { type: 'keyword' },
     fromRoomId: { type: 'keyword' },
