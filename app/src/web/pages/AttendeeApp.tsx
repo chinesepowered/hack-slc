@@ -133,15 +133,23 @@ function PlanBSheet({ talk, onClose, onSaved }: { talk: Talk; onClose: () => voi
           ×
         </button>
         <div className="sheet__hero">
-          <Capy mood={hold ? 'chill' : 'happy'} spring={!!hold} size={86} />
+          <Capy mood={hold ? 'chill' : 'happy'} spring={!!hold} size={98} className={hold ? 'capy--pop' : undefined} />
           <div>
             <p className="sheet__kicker">{ROOM_BY_ID.get(talk.roomId)?.name} is full</p>
             <h2 id="planb-title" className="sheet__title">
-              {hold ? 'Your seat is held' : 'Capy found you a Plan B'}
+              {hold ? 'Your seat is held' : 'Capy found you a Plan\u00a0B'}
             </h2>
           </div>
         </div>
 
+        {hold && (
+          // Yuzu confetti: decoration only, and still under reduced motion.
+          <div className="confetti" aria-hidden="true">
+            {Array.from({ length: 10 }, (_, i) => (
+              <i key={i} style={{ left: `${5 + i * 9.6}%`, animationDelay: `${(i % 5) * 90}ms` }} />
+            ))}
+          </div>
+        )}
         {hold ? (
           <div className="hold">
             <p className="hold__talk">{hold.talk.title}</p>
@@ -297,6 +305,10 @@ export function AttendeeApp() {
             </label>
             {!results && (
               <div className="suggest">
+                <div className="hello">
+                  <Capy mood="happy" size={124} />
+                  <p className="bubble">Hi, I'm Capy. Tell me what you want to learn and I'll find you a seat, even when the room is full.</p>
+                </div>
                 <p className="muted">Try asking in your own words:</p>
                 {SUGGESTIONS.map((s) => (
                   <button key={s} className="chip chip--button" onClick={() => search(s)}>
