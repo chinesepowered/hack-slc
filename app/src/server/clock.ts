@@ -63,4 +63,35 @@ export class SimClock {
   }
 }
 
-export const clock = new SimClock(DAY_START, Number(process.env.SIM_SPEED ?? 20));
+export interface LoopWindow {
+  start: number;
+  end: number;
+}
+
+/**
+ * An optional replay window (SIM_LOOP_START and SIM_LOOP_END, ISO times).
+ * The deployed demo loops over the minutes around the 2:00 PM rush, so a
+ * visitor sees a room fill up and Capy reschedule the overflow without
+ * waiting for the whole day to come round.
+ */
+export function loopWindow(env: NodeJS.ProcessEnv = process.env): LoopWindow | null {
+  const start = Date.parse(env.SIM_LOOP_START ?? '');
+  const end = Date.parse(env.SIM_LOOP_END ?? '');
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return null;
+  if (start < DAY_START || end > DAY_END || end - start < 5 * 60_000) return null;
+  return { start, end };
+}
+
+/**
+ * Where the clock goes when it has to wrap, or null to keep going. The day
+ * wraps at its end. A replay window wraps only when the clock runs past its
+ * end, so a jump to later in the day stays where it was put.
+ */
+export function wrapTarget(previous: number, now: number, loop: LoopWindow | null): number | null {
+  if (now >= DAY_END) return loop?.start ?? DAY_START;
+  if (loop && previous < loop.end && now >= loop.end) return loop.start;
+  return null;
+}
+
+export const LOOP = loopWindow();
+export const clock = new SimClock(LOOP?.start ?? DAY_START, Number(process.env.SIM_SPEED ?? 20));

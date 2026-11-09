@@ -6,7 +6,7 @@
 // Load is bounded: a fixed number of agents, one Plan B query per full room
 // per batch window.
 import { trace } from '@opentelemetry/api';
-import { clock, DAY_END, DAY_START } from './clock';
+import { clock, LOOP, wrapTarget } from './clock';
 import { venue } from './venue-state';
 import { loadData } from './data';
 import { bindSeats, newRun, previewPlanB, recordPlanB } from './scheduler';
@@ -71,6 +71,8 @@ class Simulator {
   private turnedAway = 0;
   private timer?: NodeJS.Timeout;
   private lastTick = 0;
+  /** Sim time at the previous tick, to tell the clock running past a point from a jump over it. */
+  private lastSim = 0;
 
   start() {
     const { talks } = loadData();
@@ -116,6 +118,7 @@ class Simulator {
 
   jump(at: number) {
     clock.set(at);
+    this.lastSim = at;
     this.resetDay(at);
     hub.broadcast({ type: 'snapshot', data: this.snapshot() });
   }
@@ -168,12 +171,12 @@ class Simulator {
 
   private tick() {
     let now = clock.now();
-    if (now >= DAY_END) {
-      clock.set(DAY_START);
-      now = DAY_START;
-      this.resetDay(now);
-      hub.broadcast({ type: 'snapshot', data: this.snapshot() });
+    const wrapTo = wrapTarget(this.lastSim, now, LOOP);
+    if (wrapTo !== null) {
+      this.jump(wrapTo);
+      now = wrapTo;
     }
+    this.lastSim = now;
     venue.expireHolds(now);
 
     for (const slot of this.slots) {
