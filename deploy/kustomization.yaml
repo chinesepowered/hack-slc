@@ -12,4 +12,4 @@ resources:
 images:
   - name: app
     newName: ghcr.io/chinesepowered/hack-slc
-    newTag: f284842
+    newTag: 2ef1836
