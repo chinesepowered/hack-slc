@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { es } from '../es';
 import { INDEX } from '../es-mappings';
 import { searchTalks } from '../search';
-import { searchMultilingual } from '../es-cloud';
+import { searchMultilingual, cloudReady } from '../es-cloud';
 import { ROOMS } from '../../shared/venue';
 import type { RoomInfo, SearchResponse, Talk, TalksResponse } from '../../shared/api-types';
 
@@ -39,7 +39,7 @@ export async function talkRoutes(app: FastifyInstance) {
     const limit = Number(req.query.limit);
     const n = Number.isFinite(limit) ? limit : 10;
     // lang=any: ask in any language, answered by Jina on Elastic Cloud Serverless.
-    if (req.query.lang === 'any') return searchMultilingual(q, n);
+    if (req.query.lang === 'any' && cloudReady()) return searchMultilingual(q, n);
     return searchTalks(q, n);
   });
 }
