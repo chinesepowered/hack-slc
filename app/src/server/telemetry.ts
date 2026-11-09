@@ -50,7 +50,9 @@ if (token && process.env.OTEL_SDK_DISABLED !== 'true') {
         '@opentelemetry/instrumentation-dns': { enabled: false },
         '@opentelemetry/instrumentation-net': { enabled: false },
         '@opentelemetry/instrumentation-http': {
-          ignoreIncomingRequestHook: (req) => req.url === '/healthz' || req.url === '/readyz',
+          // Probes are noise, and the event stream is one request that lasts for hours.
+          ignoreIncomingRequestHook: (req) =>
+            req.url === '/healthz' || req.url === '/readyz' || (req.url ?? '').startsWith('/api/live/stream'),
         },
       }),
       new FastifyOtelInstrumentation({ registerOnInitialization: true }),

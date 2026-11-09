@@ -5,6 +5,9 @@ import { config } from './config';
 import { log } from './log';
 import { bootstrap, isReady } from './es';
 import { talkRoutes } from './routes/talks';
+import { liveRoutes } from './routes/live';
+import { simulator } from './simulator';
+import { registerGauges } from './gauges';
 
 async function main() {
   const app = Fastify({ loggerInstance: log, trustProxy: true });
@@ -20,6 +23,7 @@ async function main() {
   }));
 
   await app.register(talkRoutes);
+  await app.register(liveRoutes);
 
   await app.register(fastifyStatic, {
     root: path.resolve(config.webDir),
@@ -38,7 +42,11 @@ async function main() {
   log.info({ port: config.port, version: config.version }, 'capykube listening');
 
   bootstrap().then(
-    () => log.info('elasticsearch ready'),
+    () => {
+      log.info('elasticsearch ready');
+      registerGauges();
+      simulator.start();
+    },
     (err) => {
       log.fatal({ err }, 'elasticsearch bootstrap failed');
       process.exit(1);
