@@ -38,8 +38,13 @@ export const api = {
   holdSeat: (fromTalkId: string, toTalkId: string, opts: PlanBOptions = {}) =>
     send<PlanBHoldResponse>('POST', '/api/planb/hold', { fromTalkId, toTalkId, ...opts }),
   releaseHold: (id: string) => send<{ released: boolean }>('DELETE', `/api/planb/hold/${encodeURIComponent(id)}`),
-  setDoor: (roomId: string, full: boolean) =>
-    send<{ roomId: string; full: boolean }>('POST', `/api/rooms/${encodeURIComponent(roomId)}/door`, { full }),
+  setDoor: (roomId: string, full: boolean, opsKey?: string) =>
+    send<{ roomId: string; full: boolean }>(
+      'POST',
+      `/api/rooms/${encodeURIComponent(roomId)}/door`,
+      { full },
+      opsKey ? { 'x-ops-key': opsKey } : {},
+    ),
   setClock: (change: { at?: string | number; speed?: number; paused?: boolean }, opsKey?: string) =>
     send<ClockState>('POST', '/api/sim/clock', change, opsKey ? { 'x-ops-key': opsKey } : {}),
   insights: () => get<Insights>('/api/insights'),

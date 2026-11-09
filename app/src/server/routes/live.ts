@@ -78,6 +78,7 @@ export async function liveRoutes(app: FastifyInstance) {
 
   // Door staff: one tap closes a room, even before the counts say it's full.
   app.post<{ Params: { id: string }; Body: { full?: boolean } }>('/api/rooms/:id/door', async (req, reply) => {
+    if (!opsAllowed(req)) return reply.code(403).send({ error: 'ops key required' });
     const room = ROOM_BY_ID.get(req.params.id);
     if (!room || room.kind !== 'session') return reply.code(404).send({ error: 'room not found' });
     const full = bool(req.body?.full);
