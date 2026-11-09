@@ -21,7 +21,7 @@ https://app.radarhq.io/checks?scope=b6tBbVG5WFw&namespace=team-capykube2
   that has seats and holds them one. It helps the attendee at a full door,
   the door staff, and the organizer who never knew how many people were
   turned away. Live at https://capykube2.cnh.radarhq.io.
-- **How we shipped.** 17 pull requests, each reviewed by Gitar, and 14
+- **How we shipped.** 18 pull requests, each reviewed by Gitar, and 14
   deploys. Every merge that changed the app built an image and
   committed a `deploy:` commit; our coding agent synced Argo CD with Radar's
   `manage_gitops` and waited for each rollout with `wait_for`. Nobody ran
