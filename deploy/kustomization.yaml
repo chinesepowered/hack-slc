@@ -11,5 +11,5 @@ resources:
   - httproute.yaml
 images:
   - name: app
-    newName: ghcr.io/chinesepowered/hack-slc
-    newTag: 2ef1836
+    newName: ghcr.io/chinesepowered/hack-slc/app
+    newTag: 24ca29c
