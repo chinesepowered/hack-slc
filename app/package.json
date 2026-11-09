@@ -1,0 +1,60 @@
+{
+  "name": "capykube",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CapyKube: a kube-scheduler for humans. When your talk is full, Capy finds you a Plan B.",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "vite build && node build.mjs",
+    "build:server": "node build.mjs",
+    "dev:web": "vite",
+    "start": "node --require ./dist/telemetry.cjs ./dist/server.cjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^9.5.1",
+    "@fastify/otel": "^1.0.1",
+    "@fastify/static": "^10.1.10",
+    "@opentelemetry/api": "^1.10.0",
+    "@opentelemetry/api-logs": "^0.223.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.83.0",
+    "@opentelemetry/exporter-logs-otlp-proto": "^0.301.1",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.301.1",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.301.1",
+    "@opentelemetry/resources": "3.1.1",
+    "@opentelemetry/sdk-logs": "3.1.1",
+    "@opentelemetry/sdk-metrics": "3.1.1",
+    "@opentelemetry/sdk-node": "^0.301.1",
+    "@opentelemetry/semantic-conventions": "^1.45.0",
+    "fastify": "^5.12.8",
+    "openai": "^6.49.0",
+    "pino": "^10.4.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@dash0/sdk-web": "^0.30.0",
+    "@types/node": "^22.19.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "esbuild": "^0.28.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "protobufjs"
+    ]
+  }
+}
