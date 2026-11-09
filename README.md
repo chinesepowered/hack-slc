@@ -21,8 +21,11 @@ Filter and Score are **one Elasticsearch query**.
 Built at the [Cloud Native Hackathon](https://www.wemakedevs.org/hackathons/cnh),
 Salt Lake City, November 9, 2026, by team **capykube2**.
 Live: **https://capykube2.cnh.radarhq.io** · big screen at
-[`/live`](https://capykube2.cnh.radarhq.io/live) · demo stage at
-[`/demo`](https://capykube2.cnh.radarhq.io/demo).
+[`/live`](https://capykube2.cnh.radarhq.io/live).
+
+[![Watch the two-minute demo: Capy in the hot spring, with the title CapyKube, a kube-scheduler for humans](docs/media/video-poster.png)](docs/media/capykube-demo.mp4)
+
+**[Watch the two-minute demo](docs/media/capykube-demo.mp4)** (narrated, with captions).
 
 ![The live board: capybaras walking to talks, a full room turning red, and Capy rescheduling the overflow](docs/media/live.png)
 
@@ -114,17 +117,24 @@ flowchart LR
 ### Radar: running it on Kubernetes
 
 - Deployed to the team's vcluster from Radar's starter: every merge builds
-  an image and **Argo CD syncs it**, driven through **Radar's MCP server**.
-- Radar's **Checks** before and after, and an **AI investigation** into a
-  real question about the running app. See [docs/radar.md](docs/radar.md).
+  an image and **Argo CD syncs it**. Our coding agent drives the cluster
+  through **Radar's MCP server**: it created the Secret and the Argo CD
+  Application, syncs each deploy commit, waits for each rollout and reads
+  the Checks. Nobody ran `kubectl`.
+- **Radar found why the first rollout was stuck.** `wait_for` came back
+  `blocked` with the pod's `ImagePullBackOff` and the registry's refusal:
+  the image had been published while the repository was private. Fixed in
+  git ([#8](https://github.com/chinesepowered/hack-slc/pull/8)).
+- **Checks before and after**: five medium findings on our workloads after
+  the first deploy, three fixed in
+  [#9](https://github.com/chinesepowered/hack-slc/pull/9), two left with
+  their reasons. The whole story is in [docs/radar.md](docs/radar.md).
 
 ### Gitar: every change through a reviewed PR
 
-- Each feature landed as a pull request that Gitar reviewed:
-  [#1](https://github.com/chinesepowered/hack-slc/pull/1),
-  [#2](https://github.com/chinesepowered/hack-slc/pull/2),
-  [#3](https://github.com/chinesepowered/hack-slc/pull/3),
-  [#4](https://github.com/chinesepowered/hack-slc/pull/4) and onward.
+- Every change landed as a pull request that Gitar reviewed, from
+  [#1](https://github.com/chinesepowered/hack-slc/pull/1) to the last one:
+  see the [merged pull requests](https://github.com/chinesepowered/hack-slc/pulls?q=is%3Apr+is%3Amerged).
 - **Project-aware review**: `.gitar/review/capykube.md` builds on
   [docs/conventions.md](docs/conventions.md) (seat accounting, venue time
   zones, Elasticsearch safety, telemetry gaps, accessibility, cluster
@@ -172,7 +182,7 @@ cd app && pnpm install && pnpm build
 cd app && ES_URL=http://localhost:9200 pnpm start
 ```
 
-Open http://localhost:8080, `/live` and `/demo`. Optional environment:
+Open http://localhost:8080 and `/live`. Optional environment:
 
 | Variable | What it turns on |
 | --- | --- |
