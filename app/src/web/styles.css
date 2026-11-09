@@ -1255,3 +1255,10 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+.toggle--lang {
+  margin: 0 0 12px;
+  box-shadow: none;
+  background: var(--teal-soft);
+  color: var(--teal-dark);
+}

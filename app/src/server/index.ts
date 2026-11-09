@@ -9,6 +9,7 @@ import { liveRoutes } from './routes/live';
 import { rumRoutes } from './routes/rum';
 import { simulator } from './simulator';
 import { registerGauges } from './gauges';
+import { bootstrapCloud } from './es-cloud';
 
 async function main() {
   const app = Fastify({ loggerInstance: log, trustProxy: true });
@@ -48,6 +49,7 @@ async function main() {
       log.info('elasticsearch ready');
       registerGauges();
       simulator.start();
+      void bootstrapCloud();
     },
     (err) => {
       log.fatal({ err }, 'elasticsearch bootstrap failed');
