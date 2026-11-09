@@ -8,10 +8,16 @@ metadata:
     app.kubernetes.io/component: api
 spec:
   # One replica: the demo clock and the crowd simulator live in this process.
-  # Recreate keeps two simulators from running side by side during a rollout.
+  # A rolling update with one surge pod keeps the old pod serving until the
+  # new one is ready, so a deploy has no gap, and a pod that can't be pulled
+  # or can't start never takes the running one down. For those few seconds
+  # two simulators run; a browser only ever follows one of them.
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: app
@@ -94,8 +100,10 @@ spec:
             requests:
               cpu: 150m
               memory: 256Mi
+            # The app idles at a few millicores. Half a CPU of limit leaves
+            # room in the team's budget for the surge pod during a rollout.
             limits:
-              cpu: "1"
+              cpu: 500m
               memory: 512Mi
           readinessProbe:
             httpGet:
